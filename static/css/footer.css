@@ -1,0 +1,94 @@
+.footer { 
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  background-color: #f1f1f1; /* Color de fondo del footer */
+  bottom: 0;
+}
+
+.footer-top {
+  padding-block: 50px; /* Reducido el padding superior e inferior */
+  background-size: contain;
+  background-position: bottom;
+}
+
+.footer .logo {
+  color: var(--rich-black-fogra-29);
+  font-size: 2.2rem;
+}
+
+.footer-text { 
+  margin-block: 10px 25px; 
+}
+
+.social-list {
+  display: flex;
+  gap: 5px;
+}
+
+.social-link {
+  background-color: var(--dark-orange);
+  color: var(--white);
+  font-size: 1.5rem;
+  padding: 10px;
+  transition: var(--transition-1);
+}
+
+.social-link:is(:hover, :focus) { 
+  background-color: var(--rich-black-fogra-29); 
+}
+
+.footer-list-title {
+  position: relative;
+  max-width: max-content;
+  color: var(--rich-black-fogra-29);
+  font-family: var(--ff-rubik);
+  font-size: var(--fs-3);
+  font-weight: var(--fw-600);
+  letter-spacing: -1px;
+  margin-block-end: 20px;
+}
+.footer-list-title::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: calc(100% + 15px);
+  background-color: var(--deep-saffron);
+  width: 40px;
+  height: 4px;
+  border-inline-end: 5px solid var(--deep-saffron);
+  box-shadow: inset -5px 0 0 var(--white);
+}
+
+.footer-list > li:not(:last-child) { 
+  margin-block-end: 15px; 
+}
+
+.footer-list address { 
+  max-width: 20ch; 
+}
+
+.footer-bottom {
+  padding-block: 5px;
+  margin-left: 36%;
+}
+
+.copyright-link { 
+  display: inline-block;
+}
+
+.copyright-link:is(:hover, :focus) { 
+  text-decoration: underline; 
+}
+
+.footer-top .container {
+  display: flex; /* Asegura que el contenedor use flexbox */
+  gap: 10%;
+  width: 100%;
+  transform: translate(-60px, -50px); /* Mueve el contenedor hacia arriba y a la izquierda */
+}
+.footer-list {
+  flex: 1; /* Asegura que todas las listas ocupen el mismo espacio */
+  padding: 0px 0px; /* Ajusta el padding para alinearlos mejor */
+}

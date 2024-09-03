@@ -1,0 +1,82 @@
+/* Estilos del contenedor de registro */
+.register-container {
+    max-width: 600px;
+    margin: 100px auto;
+    padding: 20px;
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--box-shadow);
+    text-align: center;
+}
+
+.register-container h2 {
+    font-size: var(--fs-2);
+    margin-bottom: 20px;
+}
+
+.form-group-register {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.form-group-register label {
+    display: block;
+    font-weight: var(--fw-500);
+    margin-bottom: 5px;
+}
+
+.form-group-register input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--gray-x-11-gray);
+    border-radius: var(--border-radius-sm);
+}
+
+.form-group-register.checkbox-group {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.form-group-register.checkbox-group input[type="checkbox"] {
+    margin-right: 10px;
+    width: auto;
+}
+
+.form-group-register.checkbox-group label {
+    margin: 0;
+}
+
+.register-button {
+    width: 100%;
+    padding: 10px;
+    margin-left: 10px;
+    background-color: var(--tangerine);
+    border: none;
+    border-radius: var(--border-radius-sm);
+    color: var(--white);
+    font-size: var(--fs-3);
+    cursor: pointer;
+    transition: background-color var(--transition-timing);
+}
+
+.register-button:hover {
+    background-color: var(--dark-orange);
+}
+
+.login-link {
+    display: block;
+    margin-top: 10px;
+    color: var(--tangerine);
+    text-decoration: none;
+    transition: color var(--transition-timing);
+}
+
+.login-link:hover {
+    color: var(--dark-orange);
+}
+
+.error-message {
+    color: rgb(228, 108, 10);
+    font-size: 14px;
+    margin-top: 5px;
+}

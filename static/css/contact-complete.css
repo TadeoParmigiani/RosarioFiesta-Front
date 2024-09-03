@@ -1,0 +1,24 @@
+.container-complete {
+    padding-top: 300px;
+    padding-bottom: 300px;
+    width: 100%;
+
+    .successful-notification {
+        width: 65%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-bottom: 50px;
+        margin: 0 auto;
+
+        h2 {
+            width: 100%;
+            text-align: center;
+            color: var(--bittersweet);
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px 0px;
+            border-radius: var(--border-radius-md);
+        }
+    }
+
+}

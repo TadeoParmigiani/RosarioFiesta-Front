@@ -1,0 +1,131 @@
+.logo img {
+    width: 80px; 
+    display: block;
+}
+.logo {
+    margin: 0; /* Elimina cualquier margen alrededor del logo */
+    padding: 0; /* Elimina cualquier padding alrededor del logo */
+}
+.header {
+    width: 100%;
+    background-color: transparent;
+    position: fixed;
+    background-repeat: no-repeat;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    border-bottom: 0.1px solid rgb(136, 136, 136);
+    transition: background-color 0.3s ease, padding 0.3s ease;
+}
+.header.scrolled {
+    background-color: rgba(0, 0, 0, 0.8); /* Color de fondo cuando se desplaza */
+    padding: 10px 0; /* Ajusta el padding cuando se desplaza */
+}
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+}
+.navbar {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+.navbar-list {
+    display: flex;
+    list-style: none;
+    margin: 0px;
+    padding: 0;
+    margin-left: auto;
+}
+.navbar-list .nav-item {
+    margin-left: 50px;
+    left: 20%;
+    position: relative; 
+}
+.navbar-list .nav-item .navbar-link {
+    text-decoration: none;
+    color: rgb(248, 240, 240);
+    font-size: var(--fs-5);
+    font-weight: var(--weight-300);
+    font-family: var(--ff-rubik);
+    transition: color 0.3s;
+    
+}
+.navbar-list .nav-item .navbar-link li a a icon{
+    text-decoration: none;
+    color: rgb(248, 240, 240);
+    font-size: var(--fs-5);
+    font-weight: var(--weight-300);
+    font-family: var(--ff-rubik);
+    transition: color 0.3s;
+    
+}
+.navbar-list .nav-item .navbar-link:hover {
+    color: #f39c12; /* Color de hover */
+}
+.navbar-list .nav-item .sub-links {
+    display: none; /* Oculto por defecto */
+    position: absolute;
+    top: 100%; /* Posiciona el submenú justo debajo del elemento padre */
+    left: 0;
+    background-color: #ffffff;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    white-space: nowrap; /* Evita que el texto se desborde a la siguiente línea */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.navbar-list .nav-item .sub-links ul {
+    list-style: none;
+    margin: 5px;
+    padding: 5px;
+}
+.navbar-list .nav-item .sub-links ul li {
+    padding: 16px 24px;
+}
+.navbar-list .nav-item .sub-links ul li a  {
+    text-decoration: none;
+    font-size: var(--fs-5);
+    font-weight: var(--weight-300);
+    font-family: var(--ff-roboto);
+    color: #333;
+    display: block;
+    padding: 2px;
+}
+
+.navbar-list .nav-item .sub-links ul li a:hover {
+    background-color: #f39c12;
+    color: #ffffff;
+}
+.navbar-list .nav-item:hover .sub-links,
+.navbar-list .nav-item .sub-links:hover {
+    display: block; /* Muestra el submenú al posicionarse sobre el elemento padre */
+    opacity: 1;
+    visibility: visible;
+}
+#log-in, #logout-btn, #cart {
+    font-size: 1.3rem; /* Tamaño uniforme para los íconos */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px; /* Espaciado uniforme */
+    margin-top: -5px; /* Ajuste de alineación */
+    border-radius: 4px; /* Para un efecto de hover uniforme */
+    transition: color 0.3s, background-color 0.3s ease;
+}
+
+/* Hover para los botones */
+#log-in:hover, #logout-btn:hover, #cart:hover {
+    color: #ffffff;
+    background-color: #f39c12;
+}
+
+/* Inicialmente oculta el botón de logout */
+#logout-btn {
+    display: none; 
+}

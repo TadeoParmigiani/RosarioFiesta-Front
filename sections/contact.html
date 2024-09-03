@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto</title>
+
+    <!--- google font link -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Rubik:wght@400;500;600;700&family=Shadows+Into+Light&display=swap" rel="stylesheet">
+
+
+    <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+    <!-- Estilos CSS -->
+    <link rel="stylesheet" href="../static/css/style.css" >
+    <!-- Box icons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+</head>
+<body style="background-image: url(../static/img/fondo\ main.jpg);">
+    <header class="header">
+        <div class="container"> 
+            <a href="#" class="logo">
+                <img src="../static/img/logo rosario fiesta (1).png" alt="Logo">
+            </a>
+            <nav class="navbar" data-navbar>
+                <ul class="navbar-list">
+                    <li class="nav-item">
+                        <a href="../sections/index.html" class="navbar-link" data-nav-link>Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#nosotros" class="navbar-link" data-nav-link>Sobre Nosotros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#productos" class="navbar-link" data-nav-link>Productos</a>
+                        <div class="sub-links">
+                            <ul>
+                              <li><a href="../sections/promos.html">Promos de hamburguesas y panchos</a></li>
+                              <li><a href="../sections/bebidas.html">Bebidas</a></li>
+                              <li><a href="../sections/saladitos.html">Saladitos</a></li>
+                              <li><a href="../sections/varios.html">Varios</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../sections/locals.html" class="navbar-link" data-nav-link>Local</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../sections/contact.html" class="navbar-link" data-nav-link>Contáctanos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../sections/login.html" class="navbar-link" id="log-in"><ion-icon name="log-in-outline"></ion-icon></a>
+                        <a href="../../RosarioFiesta-back/public/logout.php" class="navbar-link" id="logout-btn" style="display: none;"><ion-icon name="log-out-outline"></ion-icon></a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../sections/cartShop.html" class="navbar-link" id="cart">
+                            <ion-icon name="cart-outline"></ion-icon>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="container-contact">
+          <section class="form-wrapper">
+            <form action="../sections/contact-complete.html" id="formRegister" method="GET" novalidate>
+              <fieldset>
+                <legend>Si tienes alguna consulta, no dudes en contáctanos</legend>
+                <div class="form-control">
+                  <label for="name">Nombre:</label>
+                  <input type="text" id="name" name="name" placeholder="Ingresar nombre" />
+                  <div class="error" id="error-name"></div>
+                </div>
+                <div class="form-control">
+                  <label for="apellido">Apellido:</label>
+                  <input type="text" id="apellido" name="apellido" placeholder="Ingresar apellido" />
+                  <div class="error" id="error-apellido"></div>
+                </div>
+                <div class="form-control">
+                  <label for="email">Email:</label>
+                  <input type="email" id="email" name="email" placeholder="Ingresar email@email.com" />
+                  <div class="error" id="error-email"></div>
+                </div>
+                <div class="form-control">
+                  <label for="tel">Telefono:</label>
+                  <input type="tel" id="tel" name="tel" placeholder="Ingresar número completo" />
+                  <div class="error" id="error-tel"></div>
+                </div>
+                <div class="form-control">
+                  <label id="label-birthdate">Fecha de nacimiento:</label>
+                  <input type="date" name="birthdate" id="birthdate" />
+                  <div class="error" id="error-date"></div>
+                </div>
+                <div class="form-control">
+                  <label for="country">Nacionalidad:</label>
+                  <select name="country" id="country" class="form-select" required>
+                    <option value="">País de nacimiento</option>
+                    <option value="AR">Argentina</option>
+                    <option value="BO">Bolivia</option>
+                    <option value="BR">Brasil</option>
+                    <option value="CH">Chile</option>
+                    <option value="CO">Colombia</option>
+                    <option value="EC">Ecuador</option>
+                    <option value="PY">Paraguay</option>
+                    <option value="PE">Perú</option>
+                    <option value="UY">Uruguay</option>
+                    <option value="VE">Venezuela</option>
+                  </select>
+                </div>
+                <div>
+                  <textarea name="mensaje" id="mensaje" cols="100%" rows="8"
+                    placeholder="Si quiere nos puede dejar un mensaje aqui..."></textarea>
+                </div>
+                <div class="error" id="error-campos"></div>
+                <input id="btnEnviar" type="submit" value="Enviar" />
+              </fieldset>
+            </form>
+            <p>
+              Si usted presiona "Enviar", su informacion personal sera guardada en
+              nuestra base de datos.
+            </p>
+          </section>
+        </div>
+      </main>
+    <footer class="footer">
+
+        <div class="footer-top" style="background-image: url('../static/img/footer-illustration.png')">
+          <div class="container">
+    
+            <div class="footer-brand">
+    
+              <a href="" class="logo">Rosario Fiesta<span class="span">.</span></a>
+    
+              <p class="footer-text">
+                Financial experts support or help you to to find out which way you can raise your funds more.
+              </p>
+    
+              <ul class="social-list">
+    
+                <li>
+                  <a href="#" class="social-link">
+                    <ion-icon name="logo-facebook"></ion-icon>
+                  </a>
+                </li>
+    
+                <li>
+                  <a href="#" class="social-link">
+                    <ion-icon name="logo-twitter"></ion-icon>
+                  </a>
+                </li>
+    
+                <li>
+                  <a href="#" class="social-link">
+                    <ion-icon name="logo-instagram"></ion-icon>
+                  </a>
+                </li>
+    
+                <li>
+                  <a href="#" class="social-link">
+                    <ion-icon name="logo-whatsapp"></ion-icon>
+                  </a>
+                </li>
+    
+              </ul>
+    
+            </div>
+    
+            <ul class="footer-list">
+    
+              <li>
+                <p class="footer-list-title">Contact Info</p>
+              </li>
+    
+              <li>
+                <p class="footer-list-item">+1 (062) 109-9222</p>
+              </li>
+    
+              <li>
+                <p class="footer-list-item">Info@YourGmail24.com</p>
+              </li>
+    
+              <li>
+                <address class="footer-list-item">Pte Perón 3412 ( esquina, Iriondo, S2000 Rosario, Santa Fe)</address>
+              </li>
+    
+            </ul>
+    
+            <ul class="footer-list">
+    
+              <li>
+                <p class="footer-list-title">Opening Hours</p>
+              </li>
+    
+              <li>
+                <p class="footer-list-item">Lunes a Viernes: 09:00 -12:00 y 16:00-18:00</p>
+              </li>
+    
+              <li>
+                <p class="footer-list-item">Sabado: 09:00 - 12:00</p>
+              </li>   
+            </ul>   
+          </div>
+        </div>
+    
+        <div class="footer-bottom">
+          <div class="container">
+            <p class="copyright-text">
+              &copy; 2024 <a href="#" class="copyright-link">PMP Soluciones tecnologicas</a> All Rights Reserved.
+            </p>
+          </div>
+        </div>
+    
+    </footer>
+
+        <!-- Archivos JavaScript -->
+        <script src="../static/javascript/index.js"></script>
+        <script src="../static/javascript/validContact.js"></script>
+        <script src="../static/javascript/header.js"></script>
+
+        <!--- ionicon link-->
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

@@ -1,0 +1,163 @@
+/* Estilos para el contenedor principal de contacto */
+.container-contact {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    max-width: 1000px;
+    width: 100%;
+    padding-bottom: 60px;
+    margin: 130px auto;
+    border-radius: 10px;
+    box-shadow: var(--box-shadow);
+    text-align: center;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: 0;
+}
+
+/* Pseudo-elemento para crear un fondo translúcido */
+.container-contact::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: var(--border-radius-md);
+    z-index: 1;
+}
+
+/*** Seccion de redirect link ****/
+
+#contact-inicio {
+    max-width: 96%;
+    z-index: 2;
+}
+
+/* Estilos para el titulo de redirecciones */
+.container-contact h2 {
+    font-size: var(--fs-1);
+    font-weight: var(--weight-700);
+    margin-bottom: 20px;
+    color: var(--white);
+    padding: 20px;
+}
+
+.redirect-contact {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    max-width: 100%;
+    margin: 0 auto;
+    color: var(--white);
+}
+
+
+/* Estilos para los párrafos de redirección */
+.redirect-contact p {
+    font-size: 16px;
+    margin-bottom: 10px;
+    flex: 1;
+
+}
+
+/* Estilos para los enlaces de redirección al HTML local */
+.redirect-contact .link-local-html {
+    margin-top: 5px;
+    color: var(--white);
+    text-decoration: none;
+    padding: 15px 8px;
+    background: transparent;
+    border: 1px solid var(--white);
+    border-radius: var(--border-radius-md);
+}
+
+/* Estilos de los enlaces de redirección */
+.redirect-contact .link-local-html:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+/**** Estilos para el título del formulario de contacto ****/
+
+/* Estilos para el contenedor del formulario */
+.container-contact .form-wrapper {
+    margin-top: 40px;
+    background: transparent;
+    border: 1px solid var(--white);
+    z-index: 3;
+    color: var(--white);
+    padding: 20px;
+    border-radius: var(--border-radius-sm);
+    text-align: left;
+    width: 60%;
+}
+
+.form-wrapper fieldset {
+    border: none;
+    padding: 50px;
+}
+
+/* Estilos para el título del formulario */
+.form-wrapper legend {
+    font-size: var(--fs-2);
+    font-weight: var(--weight-700);
+    text-align: center;
+}
+
+/* Estilos para las etiquetas del formulario */
+.form-wrapper label {
+    font-weight: var(--weight-700);
+}
+
+/* Estilos para los campos de entrada del formulario */
+.form-wrapper input,
+.form-wrapper textarea,
+.form-wrapper select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: var(--border-radius-sm);
+    box-sizing: border-box;
+    font-size: var(--fs-5);
+    outline: none;
+    border: none;
+    color: var(--onyx);
+    background-color: var(--white);
+}
+
+
+/* Estilos para el botón de envío del formulario */
+.form-wrapper input[type="submit"] {
+    background-color: transparent;
+    border: 1px solid;
+    color: var(--white);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Estilos para el botón de envío del formulario hover*/
+.form-wrapper input[type="submit"]:hover {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+/* Estilos para el área de texto del formulario */
+.form-wrapper textarea {
+    margin-top: 20px;
+    resize: none;
+    overflow-y: auto;
+}
+
+/* Estilos para los mensajes de confirmación o error */
+.form-wrapper p {
+    font-size: var(--fs-7);
+    color: var(--sonic-silver);
+    background-color: var(--white);
+    padding: 20px;
+    border-radius: var(--border-radius-md);
+}

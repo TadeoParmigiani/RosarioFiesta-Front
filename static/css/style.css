@@ -1,0 +1,110 @@
+/* Importación de archivos CSS externos */
+@import "index.css";
+@import "header.css";
+@import "footer.css";
+@import "index.css";
+@import "about.css";
+@import "locals.css";
+@import "contact.css";
+@import "contact-complete.css";
+@import "login.css";
+@import "register.css";
+@import "cards.css";
+@import "cartShop.css";
+
+
+/* Importación de fuente desde Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+/*-----------------------------------*/
+/* Propiedades Personalizadas */
+/*-----------------------------------*/
+
+:root {
+    /* Definición de colores */
+    --rich-black-fogra-29: hsl(210, 26%, 7%);
+    --champagne-pink_20: hsla(23, 61%, 86%, 0.2);
+    --independence_30: hsla(245, 17%, 29%, 0.3);
+    --gray-x-11-gray: hsl(0, 0%, 73%);
+    --champagne-pink: hsl(23, 61%, 86%);
+    --spanish-gray: hsl(0, 0%, 60%);
+    --sonic-silver: hsl(0, 0%, 47%);
+    --deep-saffron: hsl(32, 100%, 59%);
+    --dark-orange: hsl(28, 100%, 58%);
+    --desert-sand: hsl(23, 49%, 82%);
+    --isabelline: hsl(38, 44%, 96%);
+    --gainsboro: hsl(0, 0%, 87%);
+    --tangerine: hsl(31, 84%, 50%);
+    --cinnabar: hsl(3, 90%, 55%);
+    --black_95: hsla(0, 0%, 0%, 0.95);
+    --cultured: hsl(0, 0%, 93%);
+    --white: hsl(0, 0%, 100%);
+    --black: hsl(0, 0%, 0%);
+    --onyx: hsl(0, 0%, 27%);
+
+    /* Definición de tamaños de fuente */
+  --ff-shadows-into-light: 'Shadows Into Light', cursive;
+  --ff-roboto: 'Roboto', sans-serif;
+  --ff-rubik: 'Rubik', sans-serif;
+
+  --fs-1: 4.2rem;
+  --fs-2: 2.2rem;
+  --fs-3: 1.8rem;
+  --fs-4: 1.4rem;
+  --fs-5: 0.9rem;
+
+  --fw-500: 500;
+  --fw-600: 600;
+  --fw-700: 700;
+
+    /* Definición de pesos de fuente */
+    --weight-300: 300;
+    --weight-400: 400;
+    --weight-500: 500;
+    --weight-600: 600;
+    --weight-700: 700;
+
+    /* Definición de radios de borde */
+    --border-radius-md: 10px;
+    --border-radius-sm: 5px;
+
+    /* Definición de tiempo de transición */
+    --transition-timing: 0.2s ease;
+
+    --box-shadow: 0 5 15px rgba(0, 0, 0, 0.5);
+}
+
+
+/**** Estilos Generales ****/
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html{
+    overflow-x: hidden;
+}
+
+body {
+    background-repeat: repeat;
+    background-size: cover; /* Ajusta la imagen para que cubra todo el fondo */
+    overflow-x: hidden;
+    width: 100vw;
+    font-family: 'Roboto', sans-serif;
+    padding-top: 100px; /* Ajusta este valor según la altura de tu header fijo */
+    
+}
+
+
+
+/*** Estilos de la Sección Principal ****/
+
+main {
+    position: relative;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+}
+
+
