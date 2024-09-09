@@ -108,7 +108,7 @@
     opacity: 1;
     visibility: visible;
 }
-#log-in, #logout-btn, #cart {
+#log-in, #logout-btn, #cart, #panel-admin {
     font-size: 1.3rem; /* Tamaño uniforme para los íconos */
     display: flex;
     align-items: center;
@@ -120,12 +120,12 @@
 }
 
 /* Hover para los botones */
-#log-in:hover, #logout-btn:hover, #cart:hover {
+#log-in:hover, #logout-btn:hover, #cart:hover, #panel-admni:hover {
     color: #ffffff;
     background-color: #f39c12;
 }
 
 /* Inicialmente oculta el botón de logout */
-#logout-btn {
+#logout-btn, #panel-admin{
     display: none; 
 }

@@ -3,14 +3,20 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(response => response.json())
         .then(data => {
             if (data.authenticated) {
-                document.getElementById('log-in').style.display = 'none';
-                document.getElementById('logout-btn').style.display = 'block';
-                document.getElementById('cart').style.pointerEvents = 'auto';
-                
-                document.getElementById('logout-btn').addEventListener('click', () => {
+                document.querySelector('#log-in').style.display = 'none';
+                document.querySelector('#logout-btn').style.display = 'block';
+                document.querySelector('#cart').style.pointerEvents = 'auto';
+
+                // Mostrar el enlace al panel de administración si el usuario es administrador
+                if (data.tipo_usuario === 'administrador') {
+                    document.querySelector('#panel-admin').style.display = 'block';
+                }
+
+                // Añadir evento al botón de cerrar sesión
+                document.querySelector('#logout-btn').addEventListener('click', () => {
                     fetch('../../RosarioFiesta-back/public/logout.php')
                         .then(response => {
-
+                            // Si la respuesta es correcta, redirigir al usuario
                             window.location.href = '../sections/index.html';
                         })
                         .catch(error => {
@@ -18,10 +24,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         });
                 });
             } else {
-                document.getElementById('log-in').style.display = 'block';
-                document.getElementById('logout-btn').style.display = 'none';
-                document.getElementById('cart').style.pointerEvents = 'none';
-                
+                document.querySelector('#log-in').style.display = 'block';
+                document.querySelector('#logout-btn').style.display = 'none';
+                document.querySelector('#cart').style.pointerEvents = 'none';
+                document.querySelector('#panel-admin').style.display = 'none';
             }
         })
         .catch(error => {
