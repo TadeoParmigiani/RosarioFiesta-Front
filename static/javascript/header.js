@@ -7,16 +7,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.querySelector('#logout-btn').style.display = 'block';
                 document.querySelector('#cart').style.pointerEvents = 'auto';
 
-                // Mostrar el enlace al panel de administración si el usuario es administrador
+                
                 if (data.tipo_usuario === 'administrador') {
                     document.querySelector('#panel-admin').style.display = 'block';
                 }
 
-                // Añadir evento al botón de cerrar sesión
                 document.querySelector('#logout-btn').addEventListener('click', () => {
                     fetch('../../RosarioFiesta-back/public/logout.php')
                         .then(response => {
-                            // Si la respuesta es correcta, redirigir al usuario
                             window.location.href = '../sections/index.html';
                         })
                         .catch(error => {
@@ -33,4 +31,5 @@ document.addEventListener('DOMContentLoaded', () => {
         .catch(error => {
             console.error('Error verificando la sesión:', error);
         });
+        
 });

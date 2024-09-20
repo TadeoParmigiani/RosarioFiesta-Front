@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carrito de Compras</title>
+    <title>Formulario clientes</title>
     <!-- Google Font Link -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -65,35 +65,32 @@
         </div>
     </header>
     <!-- MAIN -->
-    <main>
-        <section class="cart">
-            <h2 class="section-title">Carrito de Compras</h2>
-            <div class="container-cart">
-                <div class="cart-grid" id="cart-grid">
-                    <!-- Item del Carrito -->
-                    <!-- <div class="cart-item">
-                        <img src="" alt="Producto" class="cart-img">
-                        <div class="cart-info">
-                            <h3 class="cart-title">Promo 1</h3>
-                            <p class="cart-description"></p>
-                            <div class="cart-quantity">
-                                <label for="quantity">Cantidad:</label>
-                                <input type="number" id="quantity" name="quantity" value="1" min="1">
-                            </div>
-                            <p class="cart-price">$10.00</p>ss
-                            <button class="btn-remove">Eliminar</button>
-                        </div>
-                    </div> -->
-                    <!-- Más items del carrito aquí -->
-                </div>
-                <div class="cart-summary" id="cart-summary">
-                  <h3>Total: $<span id="total-price"></span></h3>
-                  <button class="btn" id="reiniciar">Reiniciar</button>
-                  <button class="btn" id="btn-proceder-pago">Proceder al Pago</button>
-              </div>
-            </div>
-        </section>
-    </main>
+        <main class="cliente-main">
+            <section class="cliente-form-section">
+                <h2 class="cliente-title">Datos Personales</h2>
+                <form class="cliente-form" action="procesar_datos.php" method="post">
+                    <label class="cliente-label" for="email">Email*</label>
+                    <input class="cliente-input" type="email" id="email" name="email" required>
+    
+                    <label class="cliente-label" for="repetir-email">Repetir email*</label>
+                    <input class="cliente-input" type="email" id="repetir-email" name="repetir-email" required>
+    
+                    <label class="cliente-label" for="nombre">Nombre*</label>
+                    <input class="cliente-input" type="text" id="nombre" name="nombre" required>
+    
+                    <label class="cliente-label" for="apellido">Apellido*</label>
+                    <input class="cliente-input" type="text" id="apellido" name="apellido" required>
+    
+                    <label class="cliente-label" for="dni">DNI*</label>
+                    <input class="cliente-input" type="text" id="dni" name="dni" required>
+    
+                    <label class="cliente-label" for="telefono">Teléfono*</label>
+                    <input class="cliente-input" type="tel" id="telefono" name="telefono" required>
+    
+                    <button class="cliente-btn-continuar" type="submit">Continuar</button>
+                </form>
+            </section>
+        </main>
     <!-- FOOTER -->
     <footer class="footer">
 

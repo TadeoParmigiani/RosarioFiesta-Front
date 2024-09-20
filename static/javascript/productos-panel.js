@@ -60,7 +60,7 @@ function eliminarProducto(idProducto) {
       .then(data => {
           if (data.success) {
               alert('Producto eliminado correctamente.');
-              cargarProductos(); // Recargar los productos
+              cargarProductos(); 
           } else {
               alert('Error al eliminar el producto.');
           }
@@ -70,12 +70,10 @@ function eliminarProducto(idProducto) {
 }
 
 function editarProducto(idProducto) {
-  // Buscar el producto por su ID en el array devuelto
   fetch(`../../RosarioFiesta-back/public/get-product.php?id_producto=${idProducto}`)
       .then(response => response.json())
       .then(data => {
           if (data.success) {
-              // Filtrar el producto correcto del array productos
               const producto = data.productos.find(p => p.id_producto == idProducto);
               if (producto) {
                   document.getElementById('editIdProducto').value = producto.id_producto;
@@ -86,7 +84,6 @@ function editarProducto(idProducto) {
                   document.getElementById('editDescripcion').value = producto.descripcion;
                   document.getElementById('editCategoria').value = producto.id_categoria;
 
-                  // Mostrar el modal de edición
                   $('#modalEditarProducto').modal('show');
               } else {
                   alert('Producto no encontrado.');
@@ -127,7 +124,7 @@ document.getElementById('formEditarProducto').addEventListener('submit', functio
       if (data.success) {
           alert('Producto actualizado correctamente.');
           $('#modalEditarProducto').modal('hide');
-          cargarProductos(); // Recargar los productos
+          cargarProductos(); 
       } else {
           alert('Error al actualizar el producto.');
       }
@@ -135,16 +132,16 @@ document.getElementById('formEditarProducto').addEventListener('submit', functio
   .catch(error => console.error('Error al actualizar el producto:', error));
 });
 function agregarProducto() {
-  // Obtener los datos del formulario
+  // Obtengo los datos del formulario
   const formData = new FormData(document.getElementById('formProducto'));
 
-  // Convertir los datos a un objeto JSON
+  // Convierto los datos a un objeto JSON
   const data = {};
   formData.forEach((value, key) => {
     data[key] = value;
   });
 
-  // Enviar los datos al backend
+  // Envio los datos al backend
   fetch('../../RosarioFiesta-back/public/add-product.php', {
     method: 'POST',
     headers: {
@@ -161,7 +158,7 @@ function agregarProducto() {
     .then(data => {
       if (data.success) {
         alert("Producto agregado correctamente");
-        cargarProductos(); // Recargar la lista de productos
+        cargarProductos(); 
       } else {
         alert('Error al agregar el producto.');
       }

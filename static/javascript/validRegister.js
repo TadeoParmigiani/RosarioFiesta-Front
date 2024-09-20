@@ -10,7 +10,7 @@ function validoCrear() {
         mostrar('#F-crear-campos', 'Debes completar todos los campos para continuar');
         return false;
     } else {
-        if (/\d/.test(name)) { // valido que el nombre no tenga números
+        if (/\d/.test(name)) { 
             mostrar('#F-NameCrear', 'El nombre no puede contener números');
             return false;
         }
@@ -18,19 +18,19 @@ function validoCrear() {
             mostrar('#F-NameCrear', 'El nombre debe tener más de 3 caracteres');
             return false;
         }
-        if (dni.toString().length !== 8) { // valido que el dni tenga 8 caracteres
+        if (dni.toString().length !== 8) { 
             mostrar('#F-dniCrear', 'El DNI debe tener 8 caracteres');
             return false;
         }
-        if (!formato.test(mail)) { // valido formato email
+        if (!formato.test(mail)) { 
             mostrar('#F-emailCrear', 'El email no tiene el formato válido');
             return false;
         }
-        if (pass.length < 8) { // valido caracteres de la contraseña
+        if (pass.length < 8) { 
             mostrar('#F-passCrear', 'La contraseña debe tener al menos 8 caracteres');
             return false;
         }
-        if (!check) { // valido el checkbox
+        if (!check) { 
             mostrar('#F-Check', 'Debes aceptar los términos y condiciones para crear una cuenta');
             return false;
         }
@@ -49,7 +49,7 @@ function mostrar(selector, mensaje) {
     }, 10000);
 }
 
-// Función para borrar los div de error cuando se escribe en los inputs
+// borrar los div de error cuando se escribe en los inputs
 document.querySelector("#fullName").addEventListener('input', function () {
     document.querySelector('#F-NameCrear').innerHTML = '';
     document.querySelector('#F-crear-campos').innerHTML = '';
@@ -71,7 +71,7 @@ document.querySelector("#terminos").addEventListener('input', function () {
     document.querySelector('#F-crear-campos').innerHTML = '';
 });
 
-// Manejo del envío del formulario
+
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('form');
 

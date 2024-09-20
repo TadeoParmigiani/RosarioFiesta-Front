@@ -1,0 +1,55 @@
+/* Estilos principales del contenedor */
+
+.cliente-form-section {
+    max-width: 40%;
+    margin: 100px auto;
+    padding: 20px;
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--box-shadow);
+    text-align: center;
+}
+
+.cliente-title {
+    font-size: var(--fs-2);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Estilos del formulario */
+.cliente-form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Estilos para las etiquetas */
+.cliente-label {
+    font-weight: var(--fw-500);
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+/* Estilos para los inputs */
+.cliente-input {
+    padding: 11px;
+    margin-bottom: 15px;
+    border: 1px solid var(--gray-x-11-gray);
+    border-radius: var(--border-radius-sm);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Estilos para el botón de continuar */
+.cliente-btn-continuar {
+    padding: 10px;
+    background-color: var(--tangerine);
+    border: none;
+    border-radius: var(--border-radius-sm);
+    color: var(--white);
+    font-size: var(--fs-3);
+    cursor: pointer;
+    transition: background-color var(--transition-timing);
+}
+
+.cliente-btn-continuar:hover {
+    background-color: var(--dark-orange);
+}

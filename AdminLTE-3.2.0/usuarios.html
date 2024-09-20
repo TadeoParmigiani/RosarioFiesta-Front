@@ -149,24 +149,16 @@
             <div class="card">
               <!-- /.card-header -->
               <div class="card-body">
-                <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#modalProducto">
-                  Agregar Producto
-                </button>
-                <table id="tablaProductos" class="table table-bordered table-hover">
+                <table id="tablaUsuarios" class="table table-bordered table-hover">
                   <thead>
                   <tr>
-                    <th>Id producto</th>
+                    <th>Id usuario</th>
                     <th>Nombre</th>
-                    <th>precio</th>
-                    <th>Stock</th>
-                    <th>Estado</th>
-                    <th>Imagen</th>
-                    <th>Id categoria</th>
-                    <th>Descripcion</th>
-                    <th>Acciones</th>
+                    <th>Email</th>
+                    <th>Dni</th>
                   </tr>
                   </thead>
-                  <tbody id="productosBody">
+                  <tbody id="usuariosBody">
                   <!-- <tr>
                     <td>Trident</td>
                     <td>Internet
@@ -196,98 +188,33 @@
     </section>
     <!-- /.content -->
   </div>
-<!-- Modal para agregar o editar producto -->
-<div class="modal fade" id="modalProducto" tabindex="-1" aria-labelledby="modalProductoLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <form id="formProducto">
-        <div class="modal-header">
-          <h5 class="modal-title" id="modalProductoLabel">Agregar Producto</h5>
-        </div>
-        <div class="modal-body">
-          <!-- Los campos del formulario van aquí -->
-          <input type="hidden" id="productoId" name="id_producto">
-          <div class="form-group">
-            <label for="nombre">Nombre</label>
-            <input type="text" class="form-control" id="nombre" name="nombre" required>
-          </div>
-          <div class="form-group">
-            <label for="descripcion">Descripción</label>
-            <textarea class="form-control" id="descripcion" name="descripcion" rows="3"></textarea>
-          </div>
-          <div class="form-group">
-            <label for="precio">Precio</label>
-            <input type="number" step="0.01" class="form-control" id="precio" name="precio" required>
-          </div>
-          <div class="form-group">
-            <label for="categoria">Categoría</label>
-            <input type="number" class="form-control" id="categoria" name="categoria" required>
-          </div>
-          <div class="form-group">
-            <label for="stock">Stock</label>
-            <input type="number" class="form-control" id="stock" name="stock" required>
-          </div>
-          <div class="form-group">
-            <label for="estado">Estado</label>
-            <select name="estado" id="estado" class="form-control" >
-              <option value=""></option>
-              <option value="activo">Activo</option>
-              <option value="inactivo">Inactivo</option>
-            </select>
-            <!-- <input type="text" class="form-control" id="estado" name="estado" required> -->
-          </div>
-          <div class="form-group">
-            <label for="img">URL de la Imagen</label>
-            <input type="text" class="form-control" id="img" name="img">
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-          <button type="submit" class="btn btn-primary">Agregar producto</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-<!-- Modal para editar producto -->
-<div class="modal fade" id="modalEditarProducto" tabindex="-1" role="dialog" aria-labelledby="modalEditarProductoLabel" aria-hidden="true">
+<!-- Modal para editar usuario -->
+<div class="modal fade" id="modalEditarUsuario" tabindex="-1" role="dialog" aria-labelledby="modalEditarUsuarioLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="modalEditarProductoLabel">Editar Producto</h5>
+        <h5 class="modal-title" id="modalEditarUsuarioLabel">Editar Usuario</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form id="formEditarProducto" method="post">
-          <input type="hidden" id="editIdProducto">
+        <form id="formEditarUsuario" method="post">
+          <div class="form-group">
+            <label for="editIdUsuario">ID Usuario</label>
+            <input type="text" class="form-control" id="editIdUsuario" readonly>
+          </div>
           <div class="form-group">
             <label for="editNombre">Nombre</label>
             <input type="text" class="form-control" id="editNombre" required>
           </div>
           <div class="form-group">
-            <label for="editPrecio">Precio</label>
-            <input type="number" class="form-control" id="editPrecio" required>
+            <label for="editEmail">Email</label>
+            <input type="email" class="form-control" id="editEmail" required>
           </div>
           <div class="form-group">
-            <label for="editStock">Stock</label>
-            <input type="number" class="form-control" id="editStock" required>
-          </div>
-          <div class="form-group">
-            <label for="editEstado">Estado</label>
-            <select class="form-control" id="editEstado" required>
-              <option value="activo">Activo</option>
-              <option value="inactivo">Inactivo</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="editDescripcion">Descripción</label>
-            <textarea class="form-control" id="editDescripcion" required></textarea>
-          </div>
-          <div class="form-group">
-            <label for="editCategoria">Categoría</label>
-            <input type="number" class="form-control" id="editCategoria" required>
+            <label for="editDni">DNI</label>
+            <input type="number" class="form-control" id="editDni" required>
           </div>
           <button type="submit" class="btn btn-primary">Guardar Cambios</button>
         </form>
@@ -295,7 +222,6 @@
     </div>
   </div>
 </div>
-
 
 
 
@@ -312,8 +238,7 @@
   <!-- /.control-sidebar -->
 </div>
 <!-- js -->
-<!-- <script src="../static/javascript/modal-productos.js"></script> -->
-<script src="../static/javascript/productos-panel.js"></script>
+<script src="../static/javascript/usuarios-panel.js"></script>
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script> 
 <!-- jQuery UI 1.11.4 -->

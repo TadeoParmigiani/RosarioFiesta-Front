@@ -1,52 +1,51 @@
-
 document.addEventListener("DOMContentLoaded", () => {
-    const products = [
-        {
-            id: 1,
-            imgSrc: "../static/img/producto1.jpg",
-            title: "Promo 1",
-            description: "Descripción de la promoción 1",
-            price: 10.00,
-            link: "#promo1"
-        },
-        {
-            id: 2,
-            imgSrc: "../static/img/promo snacks 2.png",
-            title: "Promo 2",
-            description: "Descripción de la promoción 2",
-            price: 20.00,
-            link: "#promo2"
-        },
-        {
-            id: 3,
-            imgSrc: "../static/img/promo snacks 2.png",
-            title: "Promo 3",
-            description: "Descripción de la promoción 2",
-            price: 13.00,
-            link: "#promo2"
-        },
-
-        // Agregar más productos 
-    ];
-
     const productGrid = document.getElementById("product-grid");
 
-    products.forEach(product => {
-        const productCard = document.createElement("div");
-        productCard.classList.add("product-card");
 
-        productCard.innerHTML = `
-            <img src="${product.imgSrc}" alt="${product.title}" class="product-img">
-            <div class="product-info">
-                <h3 class="product-title">${product.title}</h3>
-                <p class="product-description">${product.description}</p>
-                <button class="btn add-to-cart" data-id="${product.id}" data-title="${product.title}" data-description="${product.description}" data-price="${product.price}" data-image="${product.imgSrc}">Agregar al carrito</button>
-            </div>
-        `;
+    fetch(`../../RosarioFiesta-back/public/get-product-activo.php?categoria=1`) 
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const products = data.productos; 
 
-        productGrid.appendChild(productCard);
-    });
+                products.forEach(product => {
+                    const productCard = document.createElement("div");
+                    productCard.classList.add("product-card");
 
+                    productCard.innerHTML = `
+                        <img src="${product.img}" alt="${product.nombre}" class="product-img">
+                        <div class="product-info">
+                            <h3 class="product-title">${product.nombre}</h3>
+                            <p class="product-description">${product.descripcion}</p>
+                            <button class="btn add-to-cart" data-id="${product.id_producto}" data-title="${product.nombre}" data-description="${product.descripcion}" data-price="${product.precio}" data-image="${product.img}">Agregar al carrito</button>
+                        </div>
+                    `;
+
+                    productGrid.appendChild(productCard);
+                });
+                                // Deshabilitar los botones "Agregar al carrito" si no está autenticado
+                                fetch('../../RosarioFiesta-back/public/check_session.php')
+                                .then(response => response.json())
+                                .then(data => {
+                                    const addToCartButtons = document.querySelectorAll('.btn.add-to-cart');
+                                    addToCartButtons.forEach(button => {
+                                        if (data.authenticated) {
+                                            button.style.pointerEvents = 'auto'; 
+                                        } else {
+                                            button.style.pointerEvents = 'none'; 
+                                        }
+                                    });
+                                })
+                                .catch(error => {
+                                    console.error('Error al verificar la autenticación:', error);
+                                });
+            } else {
+                productGrid.innerHTML = '<p>No se encontraron productos activos.</p>';
+            }
+        })
+        .catch(error => console.error('Error al obtener productos activos:', error));
+
+    
     document.addEventListener("click", (event) => {
         if (event.target.classList.contains("add-to-cart")) {
             const productElement = event.target;
@@ -64,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 image: productImage
             };
 
-            // Guardar en localStorage
+            
             let cart = JSON.parse(localStorage.getItem("cart")) || [];
             cart.push(product);
             localStorage.setItem("cart", JSON.stringify(cart));
