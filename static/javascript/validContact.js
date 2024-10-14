@@ -1,29 +1,55 @@
 /////////////// CONTACTO ///////////////
 const Contact = document.getElementById('btnEnviar');
 
-
-// Funcion para asegurarme que no pase el iniciar sesion sin antes validar 
+// Función para asegurarme que no pase el iniciar sesión sin antes validar 
 Contact.addEventListener('click', function(event){
     event.preventDefault(); // Comportamiento predeterminado del formulario
+
     if (validoContact()){
-        console.log("Contacto con exito");
-        window.location.href = '../sections/contact-complete.html'; 
-    }
+      const nombre = document.querySelector("#name").value;
+      const apellido = document.querySelector("#apellido").value;
+      const email = document.querySelector("#email").value;
+      const telefono = document.querySelector("#tel").value;
+      const fecha = document.querySelector("#birthdate").value;
+      const mensaje = document.querySelector("#mensaje").value;
+
+      // Crear objeto con datos del formulario
+      const formData = { nombre, apellido, email, telefono, fecha, mensaje };
+      console.log(JSON.stringify(formData));
+      
+      // Enviar datos al archivo PHP mediante fetch
+      fetch('../../RosarioFiesta-back/public/save-comments.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+      })
+      .then(response => response.json())
+      .then(data => {
+          if (data.status === "success") {
+              console.log("Datos guardados con éxito.");
+              window.location.href = '../sections/contact-complete.html';
+          } else {
+              console.error("Error:", data.message);
+          }
+      })
+      .catch(error => console.error("Error:", error));
+  }
 });
 
-// Recuperar
+
 function validoContact(){
 
-    // crear cuenta tiene: nombre, apellido, email, tel, nacimiento, nacionalidad
     let name = document.querySelector("#name").value;
     let apellido = document.querySelector("#apellido").value;
     let email = document.querySelector("#email").value;
     let formato = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Expresión regular
     let tell = document.querySelector("#tel").value;
     let date = document.querySelector("#birthdate").value;
-    let nacion = document.querySelector("#country").value;
+    let mensaje = document.querySelector("#mensaje").value;
 
-    if (name.trim() == '' || apellido.trim() == '' || email.trim() == '' || tell.trim() == '' || date.trim() == '' || nacion.trim() == ''){ // valido campos vacios
+    // let nacion = document.querySelector("#country").value;
+
+    if (name.trim() == '' || apellido.trim() == '' || email.trim() == '' || tell.trim() == '' || date.trim() == '' || mensaje.trim() == ''){ // valido campos vacios nacion.trim() == ''
         mostrar('#error-campos', 'Debes completar todos los campos para continuar');
         return false;
     } else {
@@ -80,25 +106,3 @@ function mostrar(selector, mensaje) {
     elemento.innerHTML = mensaje; 
     setTimeout(() => {elemento.innerHTML = ''; }, 10000); 
 }
-
-// Funcion para borrar los div de error cuando se escribe en los inputs
-document.querySelector("#fullName").addEventListener('input', function() { 
-    document.querySelector('#F-NameCrear').innerHTML = '';
-    document.querySelector('#F-crear-campos').innerHTML = '';
-});
-document.querySelector("#dni").addEventListener('input', function() { 
-  document.querySelector('#F-dniCrear').innerHTML = '';
-  document.querySelector('#F-crear-campos').innerHTML = '';
-});
-document.querySelector("#email").addEventListener('input', function() { 
-  document.querySelector('#F-emailCrear').innerHTML = '';
-  document.querySelector('#F-crear-campos').innerHTML = '';
-});
-document.querySelector("#password").addEventListener('input', function() { 
-  document.querySelector('#F-passCrear').innerHTML = '';
-  document.querySelector('#F-crear-campos').innerHTML = '';
-});
-document.querySelector("#terminos").addEventListener('input', function() { 
-  document.querySelector('#F-Check').innerHTML = '';
-  document.querySelector('#F-crear-campos').innerHTML = '';
-});

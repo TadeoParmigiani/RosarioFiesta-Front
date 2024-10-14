@@ -46,6 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const removeButton = cartItem.querySelector(".btn-remove");
 
             quantityInput.addEventListener("change", () => {
+                product.quantity = parseInt(quantityInput.value);  // Actualiza la cantidad
                 updateCartStorage();
                 updateTotals();
             });
@@ -57,6 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
         updateTotals(); // Actualizar los totales después de cargar el carrito
+        console.log("Datos a enviar:", cart);
     }
 
     // Función para eliminar un producto del carrito y actualizar localStorage
@@ -77,7 +79,9 @@ document.addEventListener("DOMContentLoaded", () => {
             const description = item.querySelector(".cart-description").textContent;
             const price = parseFloat(item.querySelector(".cart-price").textContent.replace("$", ""));
             const image = item.querySelector(".cart-img").src;
-            cart.push({ id, title, description, price, image });
+            const quantity = parseInt(item.querySelector("input[name='quantity']").value);
+
+            cart.push({ id, title, description, price, image, quantity});
         });
         localStorage.setItem("cart", JSON.stringify(cart));
     }
@@ -99,5 +103,25 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+    function addToCard(product) {
+        // Obtener el carrito del localStorage o inicializarlo como un array vacío
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    
+        // Verificar si el producto ya está en el carrito
+        const existingProduct = cart.find(item => item.id === product.id);
+    
+        if (existingProduct) {
+            // Si el producto ya está en el carrito, aumentar la cantidad
+            existingProduct.quantity += 1;
+        } else {
+            // Si el producto no está en el carrito, agregarlo con la cantidad inicial de 1
+            product.quantity = 1;
+            cart.push(product);
+        }
+    
+        // Guardar el carrito actualizado en localStorage
+        localStorage.setItem("cart", JSON.stringify(cart));
+    }
+    
     loadCart();  // Cargar el carrito cuando la página se carga
 });

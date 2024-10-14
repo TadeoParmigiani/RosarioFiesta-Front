@@ -23,22 +23,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     productGrid.appendChild(productCard);
                 });
-                                // Deshabilitar los botones "Agregar al carrito" si no está autenticado
-                                fetch('../../RosarioFiesta-back/public/check_session.php')
-                                .then(response => response.json())
-                                .then(data => {
-                                    const addToCartButtons = document.querySelectorAll('.btn.add-to-cart');
-                                    addToCartButtons.forEach(button => {
-                                        if (data.authenticated) {
-                                            button.style.pointerEvents = 'auto'; 
-                                        } else {
-                                            button.style.pointerEvents = 'none'; 
-                                        }
-                                    });
-                                })
-                                .catch(error => {
-                                    console.error('Error al verificar la autenticación:', error);
-                                });
+                
+                // Deshabilitar los botones "Agregar al carrito" si no está autenticado
+                fetch('../../RosarioFiesta-back/public/check_session.php')
+                .then(response => response.json())
+                .then(data => {
+                    const addToCartButtons = document.querySelectorAll('.btn.add-to-cart');
+                    addToCartButtons.forEach(button => {
+                        if (data.authenticated) {
+                            button.style.pointerEvents = 'auto'; 
+                        } else {
+                            button.style.pointerEvents = 'none'; 
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Error al verificar la autenticación:', error);
+                });
             } else {
                 productGrid.innerHTML = '<p>No se encontraron productos activos.</p>';
             }
@@ -46,29 +47,40 @@ document.addEventListener("DOMContentLoaded", () => {
         .catch(error => console.error('Error al obtener productos activos:', error));
 
     
-    document.addEventListener("click", (event) => {
-        if (event.target.classList.contains("add-to-cart")) {
-            const productElement = event.target;
-            const productId = productElement.getAttribute("data-id");
-            const productTitle = productElement.getAttribute("data-title");
-            const productDescription = productElement.getAttribute("data-description");
-            const productPrice = productElement.getAttribute("data-price");
-            const productImage = productElement.getAttribute("data-image");
-
-            const product = {
-                id: productId,
-                title: productTitle,
-                description: productDescription,
-                price: parseFloat(productPrice),
-                image: productImage
-            };
-
-            
-            let cart = JSON.parse(localStorage.getItem("cart")) || [];
-            cart.push(product);
-            localStorage.setItem("cart", JSON.stringify(cart));
-
-            alert(`${product.title} ha sido agregado al carrito.`);
-        }
-    });
+        document.addEventListener("click", (event) => {
+            if (event.target.classList.contains("add-to-cart")) {
+                const productElement = event.target;
+                const productId = productElement.getAttribute("data-id");
+                const productTitle = productElement.getAttribute("data-title");
+                const productDescription = productElement.getAttribute("data-description");
+                const productPrice = productElement.getAttribute("data-price");
+                const productImage = productElement.getAttribute("data-image");
+        
+                // Crear el producto con cantidad inicial de 1
+                const product = {
+                    id: productId,
+                    title: productTitle,
+                    description: productDescription,
+                    price: parseFloat(productPrice),
+                    image: productImage,
+                    quantity: 1  // Cantidad inicial
+                };
+                console.log("Datos a enviar:", product);
+                let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        
+                // Verificar si el producto ya existe en el carrito
+                const existingProduct = cart.find(item => item.id === product.id);
+                if (existingProduct) {
+                    // Si existe, incrementar la cantidad
+                    existingProduct.quantity += 1;
+                } else {
+                    // Si no existe, agregar el producto con cantidad inicial de 1
+                    cart.push(product);
+                }
+        
+                localStorage.setItem("cart", JSON.stringify(cart));
+        
+                alert(`${product.title} ha sido agregado al carrito.`);
+            }
+        });
 });

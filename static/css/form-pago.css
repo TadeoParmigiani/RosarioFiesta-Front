@@ -1,0 +1,124 @@
+/* Estilos principales del contenedor */
+.resumen-main {
+    max-width: 60%;
+    margin: 100px auto;
+    padding: 20px 30px 15px 20px;
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--box-shadow);
+    background-color: var( --gainsboro);
+    text-align: center;
+}
+
+/* Títulos */
+.h2-pago {
+    font-size: var(--fs-2);
+    margin-bottom: 20px;
+}
+
+.h3-pago {
+    margin-top: 20px;
+    font-size: var(--fs-4);
+}
+
+/* Estilos de la tabla */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.table-header {
+    background-color: var(--green);
+   
+}
+
+.table-row {
+    border-bottom: 1px solid #ddd;
+}
+
+.table-cell {
+    padding-bottom: 15px;
+    text-align: left;
+}
+.table-cell-td {
+    padding: 5px; 
+    text-align: left;
+}
+
+.table-cell.table-header-cell {
+    font-weight: bold;
+    padding-top: 10px;
+}
+
+/* Estilos del pie de la tabla */
+.table-footer {
+    background-color: #c3c1c1;
+}
+
+#total {
+    font-weight: bold;
+    padding-top: 5px;
+    text-align: left;
+}
+
+/* Estilos del formulario */
+#metodo-pago-form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+/* Estilos para los inputs de radio */
+#metodo-pago-form div {
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+/* Estilos para las etiquetas */
+.cliente-label {
+    font-weight: var(--fw-500);
+    margin-bottom: 5px;
+}
+
+/* Estilos para los inputs */
+input[type="text"] {
+    padding: 11px;
+    margin-bottom: 15px;
+    border: 1px solid var(--gray-x-11-gray);
+    border-radius: var(--border-radius-sm);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Estilos para los botones */
+.btn-pagar {
+    padding: 10px;
+    background-color: var(--tangerine);
+    border: none;
+    border-radius: var(--border-radius-sm);
+    color: var(--white);
+    font-size: var(--fs-3);
+    cursor: pointer;
+    transition: background-color var(--transition-timing);
+}
+
+.btn-pagar:hover {
+    background-color: var(--dark-orange);
+}
+
+/* Estilos para el formulario de tarjeta de crédito */
+#form-tarjeta {
+    margin-top: 15px;
+    display: none;
+}
+
+/* Estilos específicos para la sección de tarjeta de crédito */
+#form-tarjeta label {
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
+}
+
+#form-tarjeta input[type="text"] {
+    margin-bottom: 15px;
+}

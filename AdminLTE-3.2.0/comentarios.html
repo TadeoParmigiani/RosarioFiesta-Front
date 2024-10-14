@@ -25,6 +25,7 @@
   <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
   <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
+   
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -112,7 +113,7 @@
               <li class="nav-item">
                 <a href="../AdminLTE-3.2.0/usuarios.html" class="nav-link">
                   <i class="far fa-user nav-icon"></i>
-                  <p>usuarios</p>
+                  <p>Usuarios</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -157,6 +158,66 @@
     <!-- /.sidebar -->
   </aside>
   <!-- /.content-wrapper -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Consultas de personas</h1>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <!-- /.card-header -->
+                <table id="tablaMensaje" class="table table-bordered table-hover">
+                  <thead>
+                  <tr>
+                    <th>Nombre</th>
+                    <th style="width: 40%;">Mensaje</th>
+                    <th>Email</th>
+                    <th>Telefono</th>
+                    <th>Fecha de nacimiento</th>
+                  </tr>
+                  </thead>
+                  <tbody id="mensajeBody">
+                  <!-- <tr>
+                    <td>Trident</td>
+                    <td>Internet
+                      Explorer 4.0
+                    </td>
+                    <td>Win 95+</td>
+                    <td> 4</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                    <td>X</td>
+                  </tr> -->
+                  <tr>
+                  </tbody >
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+
+
+
   <footer class="main-footer">
     <strong>Copyright &copy; 2023-2024 <a href="https://adminlte.io">PMP Soluciones</a>.</strong>
     All rights reserved.
@@ -168,10 +229,11 @@
   </aside>
   <!-- /.control-sidebar -->
 </div>
-<!-- ./wrapper -->
-
+<!-- js -->
+<!-- <script src="../static/javascript/modal-productos.js"></script> -->
+<script src="../static/javascript/comentario-panel.js"></script>
 <!-- jQuery -->
-<script src="plugins/jquery/jquery.min.js"></script>
+<script src="plugins/jquery/jquery.min.js"></script> 
 <!-- jQuery UI 1.11.4 -->
 <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -204,5 +266,7 @@
 <script src="dist/js/demo.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="dist/js/pages/dashboard.js"></script>
+
+
 </body>
 </html>

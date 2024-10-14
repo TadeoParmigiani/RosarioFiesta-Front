@@ -23,7 +23,7 @@
 
 /* Estilos para las etiquetas */
 .cliente-label {
-    font-weight: var(--fw-500);
+    font-weight: var( --rich-black-fogra-29);
     margin-bottom: 5px;
     text-align: left;
 }

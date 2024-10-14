@@ -25,6 +25,7 @@
   <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
   <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
+   
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -112,7 +113,7 @@
               <li class="nav-item">
                 <a href="../AdminLTE-3.2.0/usuarios.html" class="nav-link">
                   <i class="far fa-user nav-icon"></i>
-                  <p>usuarios</p>
+                  <p>Usuarios</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -125,7 +126,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="../AdminLTE-3.2.0/analisis-clientes.html" class="nav-link">
+                    <a href="./index.html" class="nav-link">
                       <i class="fa fa-chart-bar nav-icon"></i>
                       <p>Analisis de clientes</p>
                     </a>
@@ -157,21 +158,153 @@
     <!-- /.sidebar -->
   </aside>
   <!-- /.content-wrapper -->
-  <footer class="main-footer">
-    <strong>Copyright &copy; 2023-2024 <a href="https://adminlte.io">PMP Soluciones</a>.</strong>
-    All rights reserved.
-  </footer>
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Ventas</h1>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
 
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <!-- /.card-header -->
+            <div class="card-body">
+              <table id="tablaVentas" class="table table-bordered table-hover">
+                <thead>
+                  <tr>
+                    <th>Id Venta</th>
+                    <th>Fecha</th>
+                    <th>Cliente</th>
+                    <th>Método de Pago</th>
+                    <th>Total</th>
+                    <th>Estado</th>
+                    <th>Productos</th>
+                  </tr>
+                </thead>
+                <tbody id="ventasBody">
+                  
+                  <tr></tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <!-- /.content -->
+  <!-- Modal para la información del cliente -->
+<div class="modal fade" id="modalCliente" tabindex="-1" aria-labelledby="modalClienteLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalClienteLabel">Información del Cliente</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="formCliente">
+          <input type="hidden" id="clienteId" name="id_cliente">
+          <div class="mb-3">
+            <label for="clienteNombre" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="clienteNombre" name="nombre" readonly>
+          </div>
+          <div class="mb-3">
+            <label for="clienteApellido" class="form-label">Apellido</label>
+            <input type="text" class="form-control" id="clienteApellido" name="apellido" readonly>
+          </div>
+          <div class="mb-3">
+            <label for="clienteDni" class="form-label">DNI</label>
+            <input type="text" class="form-control" id="clienteDni" name="dni" readonly>
+          </div>
+          <div class="mb-3">
+            <label for="clienteEmail" class="form-label">Email</label>
+            <input type="email" class="form-control" id="clienteEmail" name="email" readonly>
+          </div>
+          <div class="mb-3">
+            <label for="clienteTelefono" class="form-label">Teléfono</label>
+            <input type="text" class="form-control" id="clienteTelefono" name="telefono" readonly>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="submit" class="btn btn-primary" id="btnModificarCliente" >Modificar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- modal editar -->
+<div class="modal fade" id="modalEditarCliente" tabindex="-1" aria-labelledby="modalEditarClienteLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalClienteLabel">Editar Información del Cliente</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="formClienteEditar">
+          <input type="hidden" id="clienteIdEditar" name="id_cliente">
+          <div class="mb-3">
+            <label for="clienteNombreEditar" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="clienteNombreEditar" name="nombre">
+          </div>
+          <div class="mb-3">
+            <label for="clienteApellidoEditar" class="form-label">Apellido</label>
+            <input type="text" class="form-control" id="clienteApellidoEditar" name="apellido">
+          </div>
+          <div class="mb-3">
+            <label for="clienteDniEditar" class="form-label">DNI</label>
+            <input type="text" class="form-control" id="clienteDniEditar" name="dni">
+          </div>
+          <div class="mb-3">
+            <label for="clienteEmailEditar" class="form-label">Email</label>
+            <input type="email" class="form-control" id="clienteEmailEditar" name="email">
+          </div>
+          <div class="mb-3">
+            <label for="clienteTelefonoEditar" class="form-label">Teléfono</label>
+            <input type="text" class="form-control" id="clienteTelefonoEditar" name="telefono">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" id="btnGuardarCliente">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="main-footer">
+  <strong>Copyright &copy; 2023-2024 <a href="https://adminlte.io">PMP Soluciones</a>.</strong>
+  All rights reserved.
+</footer>
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
   </aside>
   <!-- /.control-sidebar -->
 </div>
-<!-- ./wrapper -->
-
+<!-- js -->
+<!-- <script src="../static/javascript/modal-productos.js"></script> -->
+<script src="../static/javascript/ventas-panel.js"></script>
 <!-- jQuery -->
-<script src="plugins/jquery/jquery.min.js"></script>
+<script src="plugins/jquery/jquery.min.js"></script> 
 <!-- jQuery UI 1.11.4 -->
 <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -204,5 +337,9 @@
 <script src="dist/js/demo.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="dist/js/pages/dashboard.js"></script>
+
+
+
+
 </body>
 </html>

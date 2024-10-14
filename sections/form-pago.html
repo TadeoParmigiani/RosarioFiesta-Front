@@ -65,32 +65,63 @@
         </div>
     </header>
     <!-- MAIN -->
-        <main class="cliente-main">
-            <section class="cliente-form-section">
-                <h2 class="cliente-title">Datos Personales</h2>
-                <form class="cliente-form" id="formulario-pago" action="" method="post">
-                    <label class="cliente-label" for="email">Email*</label>
-                    <input class="cliente-input" type="email" id="email" name="email" required>
-    
-                    <label class="cliente-label" for="repetir-email">Repetir email*</label>
-                    <input class="cliente-input" type="email" id="repetir-email" name="repetir-email" required>
-    
-                    <label class="cliente-label" for="nombre">Nombre*</label>
-                    <input class="cliente-input" type="text" id="nombre" name="nombre" required>
-    
-                    <label class="cliente-label" for="apellido">Apellido*</label>
-                    <input class="cliente-input" type="text" id="apellido" name="apellido" required>
-    
-                    <label class="cliente-label" for="dni">DNI*</label>
-                    <input class="cliente-input" type="text" id="dni" name="dni" required>
-    
-                    <label class="cliente-label" for="telefono">Teléfono*</label>
-                    <input class="cliente-input" type="tel" id="telefono" name="telefono" required>
-    
-                    <button class="cliente-btn-continuar" type="submit">Continuar</button>
-                </form>
-            </section>
-        </main>
+    <main class="resumen-main">
+      <section class="resumen-section">
+          <h2 class="h2-pago">Resumen del Pedido</h2>
+  
+          <!-- Resumen de productos -->
+          <table class="table table-pago">
+              <thead class="table-header">
+                  <tr class="table-row">
+                      <th class="table-cell table-header-cell">Producto</th>
+                      <th class="table-cell table-header-cell">Cantidad</th>
+                      <th class="table-cell table-header-cell">Precio Unitario</th>
+                      <th class="table-cell table-header-cell">Subtotal</th>
+                  </tr>
+              </thead>
+              <tbody id="productos-resumen" class="table-body">
+                  <!-- Productos se llenarán dinámicamente con JS -->
+              </tbody>
+              <tfoot class="table-footer">
+                  <tr class="table-row">
+                      <td colspan="3" class="table-cell"><strong>Total</strong></td>
+                      <td class="table-cell" id="total">0.00</td>
+                  </tr>
+              </tfoot>
+          </table>
+  
+          <!-- Selección del método de pago (REQ-7.2) -->
+          <h3 class="h3-pago">Método de Pago</h3>
+          <form id="metodo-pago-form" method="POST">
+              <div>
+                  <input type="radio" id="tarjeta" name="metodo_pago" value="tarjeta" required>
+                  <label for="tarjeta">Tarjeta de Crédito</label>
+              </div>
+              <div>
+                  <input type="radio" id="mercadopago" name="metodo_pago" value="mercadopago">
+                  <label for="mercadopago">MercadoPago</label>
+              </div>
+              <div>
+                  <input type="radio" id="efectivo" name="metodo_pago" value="efectivo">
+                  <label for="efectivo">Efectivo</label>
+              </div>
+              
+              <!-- Formulario de tarjeta de crédito -->
+              <div id="form-tarjeta" style="display:none;">
+                  <label for="numero-tarjeta">Número de Tarjeta</label>
+                  <input type="text" id="numero-tarjeta" maxlength="16"  name="numero-tarjeta" >
+                  
+                  <label for="fecha-vencimiento">Fecha de Vencimiento (MM/AA)</label>
+                  <input type="text" id="fecha-vencimiento" maxlength="5" name="fecha-vencimiento" placeholder="MM/AA" >
+                  
+                  <label for="cvv">CVV</label>
+                  <input type="text" id="cvv" maxlength="3" name="numero-cvv" >
+              </div>
+  
+              <button type="submit" class="btn-pagar">Finalizar Pago</button>
+          </form>
+      </section>
+  </main>
     <!-- FOOTER -->
     <footer class="footer">
 
@@ -183,7 +214,7 @@
     </footer>
 
     <!-- Archivos JavaScript -->
-    <script src="../static/javascript/form-cliente.js"></script>
+    <script src="../static/javascript/form-pago.js"></script>
     <script src="../static/javascript/header.js"></script>
     <!-- Ionicon Link -->
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>

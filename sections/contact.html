@@ -69,7 +69,7 @@
     <main>
         <div class="container-contact">
           <section class="form-wrapper">
-            <form action="../sections/contact-complete.html" id="formRegister" method="GET" novalidate>
+            <form action="" id="formRegister" method="POST" novalidate>
               <fieldset>
                 <legend>Si tienes alguna consulta, no dudes en contáctanos</legend>
                 <div class="form-control">
@@ -97,7 +97,7 @@
                   <input type="date" name="birthdate" id="birthdate" />
                   <div class="error" id="error-date"></div>
                 </div>
-                <div class="form-control">
+                <!-- <div class="form-control">
                   <label for="country">Nacionalidad:</label>
                   <select name="country" id="country" class="form-select" required>
                     <option value="">País de nacimiento</option>
@@ -112,7 +112,7 @@
                     <option value="UY">Uruguay</option>
                     <option value="VE">Venezuela</option>
                   </select>
-                </div>
+                </div> -->
                 <div>
                   <textarea name="mensaje" id="mensaje" cols="100%" rows="8"
                     placeholder="Si quiere nos puede dejar un mensaje aqui..."></textarea>
@@ -122,8 +122,7 @@
               </fieldset>
             </form>
             <p>
-              Si usted presiona "Enviar", su informacion personal sera guardada en
-              nuestra base de datos.
+              "Si presiona 'Enviar', su información será enviada por correo electrónico a nuestro equipo de administración.".
             </p>
           </section>
         </div>

@@ -23,6 +23,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     productGrid.appendChild(productCard);
                 });
+                // Deshabilitar los botones "Agregar al carrito" si no está autenticado
+                fetch('../../RosarioFiesta-back/public/check_session.php')
+                .then(response => response.json())
+                .then(data => {
+                    const addToCartButtons = document.querySelectorAll('.btn.add-to-cart');
+                    addToCartButtons.forEach(button => {
+                        if (data.authenticated) {
+                            button.style.pointerEvents = 'auto'; 
+                        } else {
+                            button.style.pointerEvents = 'none'; 
+                        }
+                    });
+                })
             } else {
                 productGrid.innerHTML = '<p>No se encontraron productos activos.</p>';
             }

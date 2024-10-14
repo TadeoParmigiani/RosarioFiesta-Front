@@ -83,6 +83,7 @@ function editarProducto(idProducto) {
                   document.getElementById('editEstado').value = producto.estado_producto;
                   document.getElementById('editDescripcion').value = producto.descripcion;
                   document.getElementById('editCategoria').value = producto.id_categoria;
+                  document.getElementById('editImg').value = producto.img;
 
                   $('#modalEditarProducto').modal('show');
               } else {
@@ -105,6 +106,7 @@ document.getElementById('formEditarProducto').addEventListener('submit', functio
   const estado = document.getElementById('editEstado').value;
   const descripcion = document.getElementById('editDescripcion').value;
   const idCategoria = document.getElementById('editCategoria').value;
+  const img = document.getElementById('editImg').value;
 
   fetch('../../RosarioFiesta-back/public/edit-product.php', {
       method: 'POST',
@@ -116,7 +118,8 @@ document.getElementById('formEditarProducto').addEventListener('submit', functio
           'stock': stock,
           'estado': estado,
           'descripcion': descripcion,
-          'id_categoria': idCategoria
+          'id_categoria': idCategoria,
+          'img' : img
       })
   })
   .then(response => response.json())

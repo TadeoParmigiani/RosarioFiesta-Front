@@ -30,6 +30,13 @@
     border-radius: var(--border-radius-sm);
 }
 
+.form-group #email {
+    width: 104%;
+    padding: 10px;
+    border: 1px solid var(--gray-x-11-gray);
+    border-radius: var(--border-radius-sm);
+}
+
 .login-button {
     width: 100%;
     padding: 10px;
