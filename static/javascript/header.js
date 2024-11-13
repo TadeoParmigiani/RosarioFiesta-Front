@@ -14,8 +14,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 document.querySelector('#logout-btn').addEventListener('click', () => {
                     fetch('../../RosarioFiesta-back/public/logout.php')
-                        .then(response => {
-                            window.location.href = '../sections/index.html';
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) { // Confirmación de que la sesión fue cerrada
+                                alert('Se cerro la sesion')
+                                window.location.href = '../sections/index.html';
+                            } else {
+                                console.error('Error cerrando sesión');
+                                alert('No se pudo cerrar la sesión. Inténtalo de nuevo.');
+                            }
                         })
                         .catch(error => {
                             console.error('Error cerrando sesión:', error);

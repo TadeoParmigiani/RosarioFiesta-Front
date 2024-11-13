@@ -25,8 +25,8 @@ Contact.addEventListener('click', function(event){
       })
       .then(response => response.json())
       .then(data => {
-          if (data.status === "success") {
-              console.log("Datos guardados con éxito.");
+          if (data.success) {
+              alert("Datos guardados con éxito.");
               window.location.href = '../sections/contact-complete.html';
           } else {
               console.error("Error:", data.message);
@@ -95,7 +95,7 @@ function verificarEdad(fechaNacimiento) {
   
   const fechaNac = new Date(fechaNacimiento); // Convierto a tipo date
   const diferencia = fechaActual - fechaNac; // Calculo la diferencia 
-  const edad = Math.floor(diferencia / (1000 * 60 * 60 * 24 * 365)); // Convierto la diferencia en años
+  const edad = Math.floor(diferencia / (1000 * 60 * 60 * 24 * 365)); 
 
   return edad >= 18; // Verifico que sea mayor de edad y devuelvo un booleano
 }

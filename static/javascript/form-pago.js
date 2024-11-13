@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
         event.preventDefault();
 
         const metodoSeleccionado = document.querySelector('input[name="metodo_pago"]:checked').value;
-        console.log(metodoSeleccionado)
+        console.log(metodoSeleccionado);
         
         if (metodoSeleccionado === 'tarjeta') {
             // Validar los campos de la tarjeta de crédito antes de continuar
@@ -35,10 +35,6 @@ document.addEventListener('DOMContentLoaded', function() {
             procesarPago(metodoSeleccionado);
             alert("Pago seleccionado en efectivo. Completar el pago en el punto de entrega.");
         }
-
-
-        });
-        
     });
 
     function validarTarjeta(numero, fecha, cvv) {
@@ -60,75 +56,99 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         return true;
     }
+
     function procesarPago(metodoSeleccionado) {
-        // Obtener datos del cliente desde localStorage
-        const cliente = JSON.parse(localStorage.getItem('cliente'));
+        // Obtener el ID del usuario
+        fetch('../../RosarioFiesta-back/public/get_user_id.php')  // Llamar al endpoint que devuelve el ID del usuario actual
+            .then(response => response.json())
+            .then(userData => {  
+                const userID = userData.id_usuario;  // Obtener el ID del usuario
 
-        if (!cliente) {
-            alert('Por favor complete los datos del cliente antes de proceder.');
-            return;
-        }
+                const cartKey = `cart_${userID}`; // Clave específica para el carrito del usuario
+                console.log(localStorage.getItem(cartKey));  // Verificar el carrito en localStorage
 
-        // Obtener productos del carrito desde localStorage
-        const carrito = JSON.parse(localStorage.getItem("cart")) || [];
+                // Obtener productos del carrito desde localStorage
+                const carrito = JSON.parse(localStorage.getItem(cartKey)) || [];
 
-        if (carrito.length === 0) {
-            alert('El carrito está vacío. No se puede proceder con el pago.');
-            return;
-        }
+                if (carrito.length === 0) {
+                    alert('El carrito está vacío. No se puede proceder con el pago.');
+                    return;
+                }
 
-        // Preparar datos para enviar
-        const data = {
-            cliente: cliente,
-            productos: carrito,
-            metodo_pago: metodoSeleccionado
-        };
-        console.log("Datos enviados:", data);
+                // Obtener datos del cliente desde localStorage
+                const cliente = JSON.parse(localStorage.getItem('cliente'));
 
-        // Enviar los datos al servidor
-        fetch('../../RosarioFiesta-back/public/process-sale.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-        .then(response => response.json())
-        .then(result => {
-            if (result.success) {
-                alert('Pago procesado exitosamente.');
-                localStorage.removeItem('cart');  // Limpiar carrito
-                window.location.href = '../sections/cartShop.html';  // Redirigir a página de agradecimiento
-            } else {
-                alert('Error al procesar el pago. Intente nuevamente.');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Ocurrió un error al procesar el pago.');
-        });
+                if (!cliente) {
+                    alert('Por favor complete los datos del cliente antes de proceder.');
+                    return;
+                }
+
+                // Preparar los datos para enviar
+                const saleData = {  
+                    cliente: cliente,
+                    productos: carrito,
+                    metodo_pago: metodoSeleccionado
+                };
+                console.log("Datos enviados:", saleData);
+
+                // Enviar los datos al servidor
+                fetch('../../RosarioFiesta-back/public/process-sale.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(saleData)  
+                })
+                .then(response => response.json())
+                .then(result => {
+                    if (result.success) {
+                        alert('Pago procesado exitosamente.');
+                        localStorage.removeItem(cartKey);  // Limpiar carrito
+                        window.location.href = '../sections/cartShop.html';  // Redirigir a página de agradecimiento
+                    } else {
+                        alert('Error al procesar el pago. Intente nuevamente.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Ocurrió un error al procesar el pago.');
+                });
+            })
+            .catch(error => {
+                console.error('Error al obtener el ID de usuario:', error);
+                alert('No se pudo obtener el ID del usuario.');
+            });
     }
 
     // Obtener productos del carrito desde localStorage
     const productosResumen = document.getElementById('productos-resumen');
     const totalElement = document.getElementById('total');
 
-    // Cargar productos desde el localStorage
-    const carrito = JSON.parse(localStorage.getItem("cart")) || [];
+    // Obtener el ID del usuario
+    fetch('../../RosarioFiesta-back/public/get_user_id.php')
+        .then(response => response.json())
+        .then(userData => {  
+            const userID = userData.id_usuario;
+            const cartKey = `cart_${userID}`;
 
-    let total = 0;
+            // Cargar productos desde el localStorage
+            const carrito = JSON.parse(localStorage.getItem(cartKey)) || [];
 
-    carrito.forEach(item => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td class="table-cell-td">${item.title}</td>
-            <td class="table-cell-td">${item.quantity}</td>
-            <td class="table-cell-td">${item.price.toFixed(2)}</td>
-            <td class="table-cell-td">${(item.price * item.quantity).toFixed(2)}</td>
-        `;
-        productosResumen.appendChild(row);
-        total += item.price * item.quantity;  // Sumando los precios de los productos
-    });
-    totalElement.textContent = total.toFixed(2);
-    
+            let total = 0;
 
+            carrito.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML =`
+                    <td class="table-cell-td">${item.title}</td>
+                    <td class="table-cell-td">${item.quantity}</td>
+                    <td class="table-cell-td">${item.price.toFixed(2)}</td>
+                    <td class="table-cell-td">${(item.price * item.quantity).toFixed(2)}</td>`;
+                productosResumen.appendChild(row);
+                total += item.price * item.quantity;  // Sumando los precios de los productos
+            });
+            totalElement.textContent = total.toFixed(2);
+        })
+        .catch(error => {
+            console.error('Error al obtener el carrito:', error);
+        });
+});
