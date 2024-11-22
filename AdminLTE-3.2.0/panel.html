@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+  
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,6 +26,8 @@
   <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
   <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
+  <link rel="stylesheet" href="../static/css/panel.css" >
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -156,7 +159,91 @@
     </div>
     <!-- /.sidebar -->
   </aside>
-  <!-- /.content-wrapper -->
+
+
+  <!-- Content Wrapper -->
+  <div class="content-wrapper">
+    <div class="content-header">
+      <div class="container-fluid text-center">
+        <h1 class="main-titlee">Bienvenido al Panel de Administración</h1>
+        <p class="subtitlee">Gestiona productos, ventas y más desde aquí.</p>
+      </div>
+    </div>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <!-- Card for Ventas -->
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="card card-option" onclick="location.href='ventas.html'">
+              <div class="card-body">
+                <i class="fas fa-shopping-cart"></i>
+                <h5 class="card-title mt-3">Ventas</h5>
+                <p class="card-text">Gestiona y visualiza las ventas realizadas.</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Card for Productos -->
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="card card-option" onclick="location.href='productos.html'">
+              <div class="card-body">
+                <i class="fas fa-cogs"></i>
+                <h5 class="card-title mt-3">Productos</h5>
+                <p class="card-text">Administra el inventario de productos disponibles.</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Card for Usuarios -->
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="card card-option" onclick="location.href='usuarios.html'">
+              <div class="card-body">
+                <i class="fas fa-users"></i>
+                <h5 class="card-title mt-3">Usuarios</h5>
+                <p class="card-text">Gestiona los usuarios registrados en el sistema.</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Card for Análisis de Clientes -->
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="card card-option" onclick="location.href='analisis-clientes.html'">
+              <div class="card-body">
+                <i class="fas fa-chart-pie"></i>
+                <h5 class="card-title mt-3">Análisis de Clientes</h5>
+                <p class="card-text">Ver estadísticas de clientes y su comportamiento.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card for Análisis de Productos -->
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="card card-option" onclick="location.href='analisis-productos.html'">
+              <div class="card-body">
+                <i class="fas fa-boxes"></i>
+                <h5 class="card-title mt-3">Análisis de Productos</h5>
+                <p class="card-text">Obtén estadísticas sobre el rendimiento de los productos.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card for Análisis de Promociones -->
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="card card-option" onclick="location.href='analisis-promociones.html'">
+              <div class="card-body">
+                <i class="fas fa-gift"></i>
+                <h5 class="card-title mt-3">Análisis de Promociones</h5>
+                <p class="card-text">Analiza el impacto de las promociones y su rendimiento.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
   <footer class="main-footer">
     <strong>Copyright &copy; 2023-2024 <a href="https://adminlte.io">PMP Soluciones</a>.</strong>
     All rights reserved.
