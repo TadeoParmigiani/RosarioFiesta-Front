@@ -1,13 +1,20 @@
 document.addEventListener('DOMContentLoaded', function() {
     const metodoPagoForm = document.getElementById('metodo-pago-form');
     const formTarjeta = document.getElementById('form-tarjeta');
+    const formMercadoPago = document.getElementById('form-mercadopago');
 
-    // Mostrar formulario de tarjeta si se selecciona Tarjeta de Crédito
     metodoPagoForm.addEventListener('change', function(event) {
-        if (event.target.value === 'tarjeta') {
+        const metodoSeleccionado = document.querySelector('input[name="metodo_pago"]:checked').value;
+
+        if (metodoSeleccionado === 'tarjeta') {
             formTarjeta.style.display = 'block';
+            formMercadoPago.style.display = 'none';
+        } else if (metodoSeleccionado === 'mercadopago') {
+            formTarjeta.style.display = 'none';
+            formMercadoPago.style.display = 'block';
         } else {
             formTarjeta.style.display = 'none';
+            formMercadoPago.style.display = 'none';
         }
     });
 
@@ -30,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         } else if (metodoSeleccionado === 'mercadopago') {
             procesarPago(metodoSeleccionado);
-            
+            alert("Por favor, envíe el comprobante por WhatsApp para completar el pago.");
         } else if (metodoSeleccionado === 'efectivo') {
             procesarPago(metodoSeleccionado);
             alert("Pago seleccionado en efectivo. Completar el pago en el punto de entrega.");
@@ -82,11 +89,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     alert('Por favor complete los datos del cliente antes de proceder.');
                     return;
                 }
+                const carritoLimpio = carrito.map(item => ({
+                    ...item,
+                    price: typeof item.price === 'string' 
+                        ? Number(item.price.replace('$', '').trim()) 
+                        : Number(item.price) // Si ya es número, úsalo directamente
+                }));
+                
 
-                // Preparar los datos para enviar
-                const saleData = {  
+                const saleData = {
                     cliente: cliente,
-                    productos: carrito,
+                    productos: carritoLimpio,
                     metodo_pago: metodoSeleccionado
                 };
                 console.log("Datos enviados:", saleData);
@@ -135,18 +148,26 @@ document.addEventListener('DOMContentLoaded', function() {
             const carrito = JSON.parse(localStorage.getItem(cartKey)) || [];
 
             let total = 0;
+            console.log(localStorage.getItem(cartKey));
 
             carrito.forEach(item => {
+                const price = typeof item.price === 'string' 
+                ? Number(item.price.replace('$', '').trim()) 
+                : Number(item.price);
+                const quantity = Number(item.quantity);
+                const subtotal = price * quantity;
                 const row = document.createElement('tr');
                 row.innerHTML =`
-                    <td class="table-cell-td">${item.title}</td>
-                    <td class="table-cell-td">${item.quantity}</td>
-                    <td class="table-cell-td">${item.price.toFixed(2)}</td>
-                    <td class="table-cell-td">${(item.price * item.quantity).toFixed(2)}</td>`;
-                productosResumen.appendChild(row);
-                total += item.price * item.quantity;  // Sumando los precios de los productos
+                   <td class="table-cell-td">${item.title}</td>
+                <td class="table-cell-td">${quantity}</td>
+                <td class="table-cell-td">$${price.toFixed(2)}</td>
+                <td class="table-cell-td">$${subtotal.toFixed(2)}</td>`;
+                    productosResumen.appendChild(row);
+                    total += subtotal;  // Sumando los precios de los productos
             });
-            totalElement.textContent = total.toFixed(2);
+            totalElement.textContent = `$${total.toFixed(2)}`;
+            console.log(localStorage.getItem(cartKey));
+
         })
         .catch(error => {
             console.error('Error al obtener el carrito:', error);

@@ -16,13 +16,27 @@ function cargarVentas() {
                     <td><a href="#" class="cliente-info" data-id="${venta.id_cliente}">${venta.cliente}</a></td>
                     <td>${venta.metodo_pago}</td>
                     <td>${venta.total}</td>
-                    <td>${venta.estado}</td>
                     <td>
                         ${venta.productos.map(p => `
                             <div>
                                 ${p.nombre} - ${p.cantidad} x $${p.precio_unitario}
                             </div>
                         `).join('')}
+                    </td>
+                    <td id="estado-${venta.id_venta}">
+                        <span>${venta.estado}</span>
+                    </td>
+                    <td>
+                        <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Cambiar Estado
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#" onclick="editarEstado(1, 'Pendiente')">Pendiente</a>
+                            <a class="dropdown-item" href="#" onclick="editarEstado(1, 'Entregado')">Entregado</a>
+                            <a class="dropdown-item" href="#" onclick="editarEstado(1, 'Cancelado')">Cancelado</a>
+                        </div>
+                        </div>
                     </td>
                 `;
 
@@ -55,12 +69,6 @@ function abrirModalCliente(clienteId) {
 
             const modalCliente = new bootstrap.Modal(document.getElementById('modalCliente'));
             modalCliente.show();
-
-            // Event listener para abrir el modal de edición
-            document.getElementById('btnModificarCliente').addEventListener('click', function() {
-                modalCliente.hide();
-                abrirModalEditar(cliente);
-            });
         })
         .catch(error => {
             console.error('Error al cargar el cliente:', error);
@@ -68,7 +76,6 @@ function abrirModalCliente(clienteId) {
 }
 
 function abrirModalEditar(cliente) {
-    // Cargar datos en el modal de edición
     document.getElementById('clienteIdEditar').value = cliente.id_cliente;
     document.getElementById('clienteNombreEditar').value = cliente.nombre;
     document.getElementById('clienteApellidoEditar').value = cliente.apellido;
@@ -103,3 +110,34 @@ document.getElementById('btnGuardarCliente').addEventListener('click', function(
         console.error('Error al actualizar el cliente:', error);
     });
 });
+
+// Función para editar el estado de una venta
+function editarEstado(idVenta, nuevoEstado) {
+    // Confirmación antes de cambiar el estado
+    if (confirm(`¿Estás seguro de que deseas cambiar el estado a "${nuevoEstado}"?`)) {
+        // Enviar la actualización al servidor
+        fetch('../../RosarioFiesta-back/public/edit-venta.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                id_venta: idVenta,
+                nuevo_estado: nuevoEstado
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Estado de la venta actualizado correctamente.');
+                // Actualizar el estado en la interfaz
+                document.getElementById(`estado-${idVenta}`).innerText = nuevoEstado;
+            } else {
+                alert('Error al actualizar el estado de la venta: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error al actualizar el estado de la venta:', error);
+        });
+    }
+}

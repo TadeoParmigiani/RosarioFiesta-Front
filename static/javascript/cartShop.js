@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const cartKey = `cart_${userID}`;
 
             // Obtener los productos y su stock desde el servidor
-            fetch('../../RosarioFiesta-back/public/get-product.php')
+            fetch('../../RosarioFiesta-back/public/get_product_y_promos.php')
                 .then(response => response.json())
                 .then(productData => {
                     if (productData.success) {
@@ -60,6 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                     </div>
                                     <button class="btn-remove">Eliminar</button>
                                 `;
+                                cartItem.setAttribute("data-id", product.id);
                                 cartItemsContainer.appendChild(cartItem);
 
                                 const quantityInput = cartItem.querySelector("input[name='quantity']");
@@ -69,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                     const selectedQuantity = parseInt(quantityInput.value);
                                     if (selectedQuantity > maxStock) {
                                         alert(`Solo hay ${maxStock} unidades disponibles de ${product.title}.`);
-                                        quantityInput.value = maxStock; // Ajusta al máximo permitido
+                                        
                                     } else {
                                         product.quantity = selectedQuantity;
                                         updateCartStorage();
@@ -97,16 +98,18 @@ document.addEventListener("DOMContentLoaded", () => {
                         function updateCartStorage() {
                             const cart = [];
                             cartItemsContainer.querySelectorAll(".cart-item").forEach(item => {
-                                const id = item.querySelector(".cart-title").textContent;
+                                const id = item.getAttribute("data-id");
+                                const title = item.querySelector(".cart-title").textContent
                                 const quantity = item.querySelector("input[name='quantity']").value;
                                 const price = item.querySelector(".cart-price").textContent;
-                                cart.push({ id, quantity, price });
+                                cart.push({ id, title, quantity, price });
                             });
                             localStorage.setItem(cartKey, JSON.stringify(cart));
+                            console.log(localStorage.getItem(cart));
                         }
-
                         // Cargar el carrito desde localStorage al cargar la página
                         loadCart();
+                        console.log(localStorage.getItem(cartKey));
 
                         // Evento para proceder al pago
                         proceedButton.addEventListener("click", () => {

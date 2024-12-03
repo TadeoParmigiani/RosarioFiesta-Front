@@ -132,7 +132,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="../AdminLTE-3.2.0/analisis-clientes.html" class="nav-link">
+                    <a href="./index.html" class="nav-link">
                       <i class="fa fa-chart-bar nav-icon"></i>
                       <p>Analisis de clientes</p>
                     </a>
@@ -170,7 +170,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Consultas de personas</h1>
+            <h1>Promociones</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -183,17 +183,25 @@
           <div class="col-12">
             <div class="card">
               <!-- /.card-header -->
-                <table id="tablaMensaje" class="table table-bordered table-hover">
+              <div class="card-body">
+                <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#modalPromociones">
+                  Agregar Producto
+                </button>
+                <table id="tablaPromociones" class="table table-bordered table-hover">
                   <thead>
                   <tr>
+                    <th>Id producto</th>
                     <th>Nombre</th>
-                    <th style="width: 40%;">Mensaje</th>
-                    <th>Email</th>
-                    <th>Telefono</th>
-                    <th>Fecha de nacimiento</th>
+                    <th>precio</th>
+                    <th>Stock</th>
+                    <th>Estado</th>
+                    <th>Imagen</th>
+                    <th>producto base</th>
+                    <th>Descripcion</th>
+                    <th>Acciones</th>
                   </tr>
                   </thead>
-                  <tbody id="mensajeBody">
+                  <tbody id="promocionesBody">
                   <!-- <tr>
                     <td>Trident</td>
                     <td>Internet
@@ -221,7 +229,112 @@
       </div>
       <!-- /.container-fluid -->
     </section>
+    <!-- /.content -->
+  </div>
+<!-- Modal para agregar producto -->
+<div class="modal fade" id="modalPromociones" tabindex="-1" aria-labelledby="modalPromocionesLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form id="formPromociones" method="POST" action="add-promociones.php">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalPromocionesLabel">Agregar Promocion</h5>
+        </div>
+        <div class="modal-body">
+          <!-- Los campos del formulario van aquí -->
+          <input type="hidden" id="promocionId" name="id_promocion">
+          <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input type="text" class="form-control" id="nombre" name="nombre" required>
+          </div>
+          <div class="form-group">
+            <label for="descripcion">Descripción</label>
+            <textarea class="form-control" id="descripcion" name="descripcion" rows="3"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="precio">Precio</label>
+            <input type="number" step="0.01" class="form-control" id="precio" name="precio" required>
+          </div>
+          <div class="form-group">
+            <label for="productosBase" class="form-label">Productos Base</label>
+            <div id="productosBaseContainer">
+              <div class="d-flex mb-2">
+                <select class="form-select" name="productosBase[]"  id="productosBase"required>
+                  <!-- Los productos base se llenarán dinámicamente -->
+                </select>
+                <input type="number" class="form-control ml-2" name="cantidad[]" placeholder="Cantidad" required min="1">
+                <button type="button" class="btn btn-success btn-sm ml-2" onclick="agregarSelectProductosBase()">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="estado">Estado</label>
+            <select name="estado_producto" id="estado" class="form-control">
+              <option value=""></option>
+              <option value="activo">Activo</option>
+              <option value="inactivo">Inactivo</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="img">URL de la Imagen</label>
+            <input type="text" class="form-control" id="img" name="img">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <button type="submit" class="btn btn-primary">Agregar promoción</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
+
+
+<!-- Modal para editar producto -->
+<div class="modal fade" id="modalEditarPromociones" tabindex="-1" role="dialog" aria-labelledby="modalEditarPromocionesLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalEditarPromocionesLabel">Editar Promocion</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="formEditarPromociones" method="post">
+          <input type="hidden" id="editIdPromociones">
+          <div class="form-group">
+            <label for="editNombre">Nombre</label>
+            <input type="text" class="form-control" id="editNombre" required>
+          </div>
+          <div class="form-group">
+            <label for="editPrecio">Precio</label>
+            <input type="number" class="form-control" id="editPrecio" required>
+          </div>
+          <div class="form-group">
+            <label for="editEstado">Estado</label>
+            <select class="form-control" id="editEstado" required>
+              <option value="activo">Activo</option>
+              <option value="inactivo">Inactivo</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="editDescripcion">Descripción</label>
+            <textarea class="form-control" id="editDescripcion" required></textarea>
+          </div>
+          <div id="productosBaseContainerEdit">
+            <!-- Los selects se llenarán dinámicamente -->
+          </div>
+          <div class="form-group">
+            <label for="editImg">URL de la Imagen</label>
+            <input type="text" class="form-control" id="editImg" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 
 
   <footer class="main-footer">
@@ -237,7 +350,7 @@
 </div>
 <!-- js -->
 <!-- <script src="../static/javascript/modal-productos.js"></script> -->
-<script src="../static/javascript/comentario-panel.js"></script>
+<script src="../static/javascript/promociones-panel.js"></script>
 <script src="../static/javascript/protect.js"></script>
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script> 
@@ -273,6 +386,11 @@
 <script src="dist/js/demo.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="dist/js/pages/dashboard.js"></script>
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 
 
 </body>

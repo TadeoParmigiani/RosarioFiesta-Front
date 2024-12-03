@@ -6,7 +6,7 @@ body {
     font-size: 3rem;
     font-weight: 700;
     color: #2d2d2d;
-    background: linear-gradient(45deg, #6e7dff, #5262d1);
+    background: linear-gradient(45deg, #0d0e20, #5262d1);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-align: center;
@@ -29,7 +29,7 @@ body {
     cursor: pointer;
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
     border-radius: 15px;
-    background: linear-gradient(145deg, #121425, #5262d1);
+    background: linear-gradient(145deg, #121425, #3c4474);
     color: #fff;
     margin-bottom: 20px;
 }

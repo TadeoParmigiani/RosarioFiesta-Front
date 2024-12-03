@@ -5,7 +5,7 @@
     padding: 20px 30px 15px 20px;
     border-radius: var(--border-radius-md);
     box-shadow: var(--box-shadow);
-    background-color: var( --gainsboro);
+    background-color: var(--gainsboro);
     text-align: center;
 }
 
@@ -29,7 +29,6 @@
 
 .table-header {
     background-color: var(--green);
-   
 }
 
 .table-row {
@@ -40,8 +39,9 @@
     padding-bottom: 15px;
     text-align: left;
 }
+
 .table-cell-td {
-    padding: 5px; 
+    padding: 5px;
     text-align: left;
 }
 
@@ -121,4 +121,63 @@ input[type="text"] {
 
 #form-tarjeta input[type="text"] {
     margin-bottom: 15px;
+}
+
+/* Estilos para el contenedor de Mercado Pago */
+#form-mercadopago {
+    margin-top: 15px;
+    display: none;
+}
+
+.mercadopago-container {
+    background-color: var(--white);
+    border: 2px solid var(--green); /* Color verde del contenedor */
+    border-radius: var(--border-radius-md);
+    padding: 20px;
+    max-width: 500px;
+    margin: 20px auto;
+    box-shadow: var(--box-shadow);
+}
+
+.mercadopago-container h3 {
+    color: var(--green);
+    font-size: var(--fs-2);
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.mercadopago-container p {
+    font-size: var(--fs-4);
+    margin: 10px 0;
+}
+
+.mercadopago-details {
+    background-color: var(--gainsboro);
+    border-left: 4px solid var(--green);
+    padding: 15px;
+    border-radius: var(--border-radius-sm);
+    margin: 15px 0;
+}
+
+.mercadopago-details p {
+    margin: 8px 0;
+    font-size: var(--fs-5);
+}
+
+.mercadopago-instructions {
+    margin-top: 20px;
+    text-align: center;
+    font-weight: var(--fw-600);
+    color: var(--green);
+}
+
+.mercadopago-instructions a {
+    text-decoration: none;
+    color: var(--dark-green);
+    font-weight: var(--fw-600);
+    transition: color var(--transition-timing);
+}
+
+.mercadopago-instructions a:hover {
+    color: var(--tangerine);
 }

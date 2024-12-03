@@ -25,6 +25,10 @@
     width: 100%;
     text-align: center;
     margin-top: 50px;
+    font-family: var(--ff-shadows-into-light);
+    font-size: var(--fs-3);
+
+
   }
   
   /* Mostrar texto oculto al pasar el mouse sobre la sección principal */

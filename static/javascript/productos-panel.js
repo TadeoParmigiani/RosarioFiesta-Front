@@ -134,6 +134,7 @@ document.getElementById('formEditarProducto').addEventListener('submit', functio
   })
   .catch(error => console.error('Error al actualizar el producto:', error));
 });
+
 function agregarProducto() {
   // Obtengo los datos del formulario
   const formData = new FormData(document.getElementById('formProducto'));

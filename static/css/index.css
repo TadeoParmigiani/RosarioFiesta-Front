@@ -1,4 +1,4 @@
-
+/* Estilo para la sección Hero */
 .hero {
   background-repeat: no-repeat;
   background-size: cover;
@@ -40,31 +40,52 @@
   color: var(--desert-sand);
   margin-top: 30px;
   margin-bottom: 40px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
+/* Contenedor principal del carrusel */
 .promo-grid {
   display: flex;
-  flex-wrap: nowrap; /* Asegura que los elementos no se envuelvan */
   gap: 30px;
   justify-content: center;
-  overflow-x: auto; /* Permite el desplazamiento horizontal si es necesario */
+  overflow: hidden; /* Oculta las imágenes fuera del contenedor */
+  position: relative;
+  width: 100%; /* Asegura que ocupe todo el ancho disponible */
 }
 
+/* Elementos del carrusel */
 .promo-item {
   background-color: transparent;
-  padding: 20px 20px;
-  overflow: hidden;
-  width: 300px; /* Ajusta el ancho para que se alineen correctamente */
+  padding: 20px;
   text-align: center;
+  transition: transform 0.3s ease;
+  width: 350px; /* Tamaño fijo para mantener consistencia */
+  flex-shrink: 0; /* Evita que los elementos se reduzcan */
+}
+
+/* Efecto de hover para las imágenes */
+.promo-item:hover {
+  transform: scale(1.0);
+}
+
+/* Estilo de las imágenes */
+.promo-img {
+  width: 90%;
+  height: 95%;
+  display: block;
+  object-fit: cover;
+  border-radius: 4px;
   transition: transform 0.3s ease;
 }
 
-.promo-item:hover {
-  transform: scale(1.1) ;
+.promo-img:hover {
+  transform: scale(1.05);
 }
 
-.promo-img {
-  width: 90%;
-  height: auto;
-  display: block;
+/* Animación del carrusel: Desplazamiento horizontal automático */
+.promo-grid {
+  animation: scroll-left 15s linear infinite;
 }
+
