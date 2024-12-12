@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const userID = data.id_usuario;
             const cartKey = `cart_${userID}`; // Clave específica para el carrito del usuario
 
-            // Solicitud fetch para obtener los productos activos de la categoría 2
+            // Solicitud fetch para obtener los productos activos de la categoría 4
             fetch(`../../RosarioFiesta-back/public/get-product-activo.php?categoria=4`)
                 .then(response => response.json())
                 .then(data => {
@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                 <div class="product-info">
                                     <h3 class="product-title">${product.nombre}</h3>
                                     <p class="product-description">${product.descripcion}</p>
+                                    <p class="product-price">$${product.precio}</p> 
                                     <button class="btn add-to-cart" data-id="${product.id_producto}" data-title="${product.nombre}" data-description="${product.descripcion}" data-price="${product.precio}" data-image="${product.img}">Agregar al carrito</button>
                                 </div>
                             `;
@@ -32,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             productGrid.appendChild(productCard);
                         });
 
-                        // Deshabilitar los botones "Agregar al carrito" si no está autenticado
+                        // Deshabilitar los botones Agregar al carrito si no está autenticado
                         fetch('../../RosarioFiesta-back/public/check_session.php')
                             .then(response => response.json())
                             .then(data => {

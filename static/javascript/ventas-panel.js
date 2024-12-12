@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', cargarVentas);
+let tablaVentas;
 
 function cargarVentas() {
     fetch('../../RosarioFiesta-back/public/get-ventas.php')
@@ -7,7 +8,10 @@ function cargarVentas() {
             const ventasBody = document.getElementById('ventasBody');
             ventasBody.innerHTML = '';
 
+            // Agregar las filas dinámicamente
             data.forEach(venta => {
+                const productosTexto = venta.productos.map(p => `${p.nombre} - ${p.cantidad} x $${p.precio_unitario}`).join(' | ');
+
                 const fila = document.createElement('tr');
 
                 fila.innerHTML = `
@@ -16,26 +20,20 @@ function cargarVentas() {
                     <td><a href="#" class="cliente-info" data-id="${venta.id_cliente}">${venta.cliente}</a></td>
                     <td>${venta.metodo_pago}</td>
                     <td>${venta.total}</td>
-                    <td>
-                        ${venta.productos.map(p => `
-                            <div>
-                                ${p.nombre} - ${p.cantidad} x $${p.precio_unitario}
-                            </div>
-                        `).join('')}
-                    </td>
+                    <td>${productosTexto}</td>
                     <td id="estado-${venta.id_venta}">
-                        <span>${venta.estado}</span>
+                         ${venta.estado.trim().replace(/\s+/g, ' ')}
                     </td>
                     <td>
                         <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Cambiar Estado
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#" onclick="editarEstado(1, 'Pendiente')">Pendiente</a>
-                            <a class="dropdown-item" href="#" onclick="editarEstado(1, 'Entregado')">Entregado</a>
-                            <a class="dropdown-item" href="#" onclick="editarEstado(1, 'Cancelado')">Cancelado</a>
-                        </div>
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Cambiar Estado
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#" onclick="editarEstado(${venta.id_venta}, 'Pendiente')">Pendiente</a>
+                                <a class="dropdown-item" href="#" onclick="editarEstado(${venta.id_venta}, 'Entregado')">Entregado</a>
+                                <a class="dropdown-item" href="#" onclick="editarEstado(${venta.id_venta}, 'Cancelado')">Cancelado</a>
+                            </div>
                         </div>
                     </td>
                 `;
@@ -43,12 +41,34 @@ function cargarVentas() {
                 ventasBody.appendChild(fila);
             });
 
-            document.querySelectorAll('.cliente-info').forEach(link => {
-                link.addEventListener('click', function(event) {
+            // Destruir la instancia anterior de DataTable (si existe) antes de volver a inicializarla
+            if (tablaVentas) {
+                tablaVentas.destroy();
+            }
+            console.log('Datos de ventas:', data);
+            // Inicializar DataTable con búsqueda habilitada
+            tablaVentas = $('#tablaVentas').DataTable({
+                responsive: true,
+                paging: true,
+                searching: true,
+                lengthChange: true,
+                order: [[0, 'desc']],
+                columnDefs: [
+                    { 
+                        targets: [7],  // Asegura que la columna "Estado" sea buscable
+                        searchable: false
+                    }
+                ]
+            });
+            console.log('DataTable:', tablaVentas);
+            // Establecer evento para mostrar detalles del cliente
+            document.getElementById('tablaVentas').addEventListener('click', function(event) {
+                const target = event.target;
+                if (target.classList.contains('cliente-info')) {
                     event.preventDefault();
-                    const clienteId = this.getAttribute('data-id');
+                    const clienteId = target.getAttribute('data-id');
                     abrirModalCliente(clienteId);
-                });
+                }
             });
         })
         .catch(error => {
@@ -69,6 +89,12 @@ function abrirModalCliente(clienteId) {
 
             const modalCliente = new bootstrap.Modal(document.getElementById('modalCliente'));
             modalCliente.show();
+
+            // Configurar el botón "Modificar" dentro del primer modal para abrir el segundo modal
+            const btnModificar = document.getElementById('btnModificarCliente');
+            btnModificar.onclick = function() {
+                abrirModalEditar(cliente); // Pasar los datos al segundo modal
+            };
         })
         .catch(error => {
             console.error('Error al cargar el cliente:', error);
@@ -111,11 +137,8 @@ document.getElementById('btnGuardarCliente').addEventListener('click', function(
     });
 });
 
-// Función para editar el estado de una venta
 function editarEstado(idVenta, nuevoEstado) {
-    // Confirmación antes de cambiar el estado
     if (confirm(`¿Estás seguro de que deseas cambiar el estado a "${nuevoEstado}"?`)) {
-        // Enviar la actualización al servidor
         fetch('../../RosarioFiesta-back/public/edit-venta.php', {
             method: 'POST',
             headers: {
@@ -130,8 +153,9 @@ function editarEstado(idVenta, nuevoEstado) {
         .then(data => {
             if (data.success) {
                 alert('Estado de la venta actualizado correctamente.');
-                // Actualizar el estado en la interfaz
                 document.getElementById(`estado-${idVenta}`).innerText = nuevoEstado;
+                // Llamar de nuevo a cargarVentas para recargar los datos y volver a inicializar DataTable
+                cargarVentas();
             } else {
                 alert('Error al actualizar el estado de la venta: ' + data.message);
             }
@@ -141,3 +165,4 @@ function editarEstado(idVenta, nuevoEstado) {
         });
     }
 }
+

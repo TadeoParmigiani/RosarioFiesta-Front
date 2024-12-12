@@ -46,14 +46,27 @@
       </li>
     </ul>
 
-    <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
-      <!-- Messages Dropdown Menu -->
-      <li class="nav-item dropdown">
-        <a class="nav-link" data-toggle="dropdown" href="#">
-          <i class="far fa-user"></i>
-      </li>
-    </ul>
+<!-- Right navbar links -->
+<ul class="navbar-nav ml-auto">
+  <!-- User Dropdown Menu -->
+  <li class="nav-item dropdown">
+    <a class="nav-link" data-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false">
+      <i class="far fa-user"></i> <span class="d-none d-md-inline">Bienvenido, Administrador</span>
+    </a>
+    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right shadow-lg rounded" aria-labelledby="navbarDropdown">
+      <div class="dropdown-header text-center">
+        <strong>Opciones de Usuario</strong>
+      </div>
+      <div class="dropdown-divider"></div>
+      <!-- Opción de Cerrar sesión -->
+      <a id="logout-btn" class="dropdown-item text-danger d-flex align-items-center">
+        <i class="fas fa-sign-out-alt mr-2"></i>
+        <span>Cerrar Sesión</span>
+      </a>
+    </div>
+  </li>
+</ul>
+
   </nav>
   <!-- /.navbar -->
 
@@ -70,7 +83,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="info">
-          <a href="promociones.html" class="d-block">Administrador</a>
+          <a href="panel.html" class="d-block">Administrador</a>
         </div>
       </div>
 
@@ -186,7 +199,7 @@
               <div class="card-body">
                 <i class="fas fa-shopping-cart"></i>
                 <h5 class="card-title mt-3">Ventas</h5>
-                <p class="card-text">Gestiona y visualiza las ventas realizadas.</p>
+                <p class="card-text">Gestiona y visualiza las ventas realizadas por los clientes.</p>
               </div>
             </div>
           </div>
@@ -256,6 +269,17 @@
               </div>
             </div>
           </div>
+
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="card card-option" onclick="location.href='#'">
+              <div class="card-body">
+                <i class="fas fa-code"></i>
+                <h5 class="card-title mt-3">Próximamente</h5>
+                <p class="card-text">coming soon.....</p>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
@@ -276,6 +300,7 @@
  
 <!-- js -->
 <script src="../static/javascript/protect.js"></script>
+<script src="../static/javascript/logout-panel.js"></script>
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->

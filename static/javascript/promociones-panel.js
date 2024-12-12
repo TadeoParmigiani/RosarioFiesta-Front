@@ -1,61 +1,44 @@
 document.addEventListener('DOMContentLoaded', function () {
     cargarPromociones();
 
-    // Manejo del envío del formulario de agregar promoción
     document.getElementById('formPromociones').addEventListener('submit', function (event) {
         event.preventDefault();
-        verificarStockProductosBase();
+        verificarStockProductosBase(false); // Verifica stock antes de agregar
     });
 
-    // Manejo del envío del formulario de editar promoción
     document.getElementById('formEditarPromociones').addEventListener('submit', function (event) {
         event.preventDefault();
-        verificarStockProductosBase(true); // Verifica el stock antes de editar
+        verificarStockProductosBase(true); // Verifica stock antes de editar
     });
 
-    // Cargar productos base para selects dinámicos
     cargarProductosBase();
 });
 
 // Cargar los productos base en los selects
 function cargarProductosBase(selectedProductId = null, index = null) {
-    fetch('../../RosarioFiesta-back/public/get-product.php') // Cambiar a la ruta real
+    fetch('../../RosarioFiesta-back/public/get-product.php')
         .then(response => response.json())
         .then(data => {
-            if (data.success) {
-                // Verifica si la respuesta contiene productos
-                const productos = data.productos || [];
+            if (data.success && Array.isArray(data.productos)) {
+                const opciones = data.productos.map(producto =>
+                    `<option value="${producto.id_producto}" ${producto.id_producto === selectedProductId ? 'selected' : ''}>
+                        ${producto.nombre} (Stock: ${producto.stock})
+                    </option>`
+                ).join('');
 
-                if (productos.length > 0) {
-                    const opciones = productos.map(producto =>
-                        `<option value="${producto.id_producto}" ${producto.id_producto === selectedProductId ? 'selected' : ''}>
-                            ${producto.nombre} (Stock: ${producto.stock})
-                        </option>`
-                    ).join('');
-
-                    // Si se pasa el parámetro index, actualizamos solo el select de edición
-                    if (index !== null) {
-                        const select = document.getElementById(`productosBase${index}`);
-                        select.innerHTML = `<option value="">Selecciona un producto</option>` + opciones;
-                    } else {
-                        // Si no se pasa el parámetro index, cargamos los select para agregar productos
-                        const container = document.getElementById('productosBaseContainer');
+                if (index !== null) {
+                    document.getElementById(`productosBase${index}`).innerHTML = `<option value="">Selecciona un producto</option>` + opciones;
+                } else {
+                    const containers = [document.getElementById('productosBaseContainer'), document.getElementById('productosBaseContainerEdit')];
+                    containers.forEach(container => {
                         const selects = container.querySelectorAll('select');
                         selects.forEach(select => {
                             select.innerHTML = `<option value="">Selecciona un producto</option>` + opciones;
                         });
-
-                        const containerEdit = document.getElementById('productosBaseContainerEdit');
-                        const selectsEdit = containerEdit.querySelectorAll('select');
-                        selectsEdit.forEach(select => {
-                            select.innerHTML = `<option value="">Selecciona un producto</option>` + opciones;
-                        });
-                    }
-                } else {
-                    console.error('No hay productos disponibles.');
+                    });
                 }
             } else {
-                console.error('No se pudieron cargar los productos base.');
+                console.error('No se pudieron cargar productos base o no hay productos disponibles.');
             }
         })
         .catch(error => console.error('Error al cargar productos base:', error));
@@ -85,49 +68,34 @@ function eliminarSelect(button) {
     button.parentElement.remove();
 }
 
+// Verificar stock y enviar datos
 function verificarStockProductosBase(isEditing = false) {
-    // Obtener los productos base seleccionados
     const selects = document.querySelectorAll('[name="productosBase[]"]');
     const cantidades = document.querySelectorAll('[name="cantidad[]"]');
 
     const idsProductos = [];
     const cantidadesProductos = [];
 
-    // Recorremos los selects y las cantidades
     selects.forEach((select, index) => {
         const productoId = select.value;
         const cantidad = cantidades[index].value;
 
-        // Evitamos que se agregue un producto duplicado
-        if (productoId !== "" && cantidad > 0) {
+        if (productoId && cantidad > 0) {
             if (!idsProductos.includes(productoId)) {
                 idsProductos.push(productoId);
-                cantidadesProductos.push(cantidad);
+                cantidadesProductos.push(parseInt(cantidad, 10));
             } else {
-                alert(`El producto ${select.options[select.selectedIndex].text} ya ha sido agregado.`);
+                alert(`El producto ${select.options[select.selectedIndex].text} ya fue agregado.`);
                 return;
             }
         }
     });
 
-    // Verificar si hay productos base seleccionados y si las cantidades son válidas
-    if (idsProductos.length === 0) {
-        alert('Debe seleccionar productos base.');
+    if (idsProductos.length === 0 || cantidadesProductos.some(c => c <= 0)) {
+        alert('Debe seleccionar productos base y cantidades válidas.');
         return;
     }
 
-    if (cantidadesProductos.some(cantidad => cantidad === "" || cantidad <= 0)) {
-        alert('Debe ingresar cantidades válidas para todos los productos base.');
-        return;
-    }
-
-    // Deshabilitar el botón de "guardar" temporalmente
-    const guardarBtn = document.querySelector('#guardar-btn');
-    if (guardarBtn) {
-        guardarBtn.disabled = true;
-    }
-
-    // Enviar los productos seleccionados y sus cantidades para verificar stock
     fetch('../../RosarioFiesta-back/public/verificar-stock.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -136,25 +104,12 @@ function verificarStockProductosBase(isEditing = false) {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                // Si no hay productos sin stock, proceder a la creación o edición de la promoción
-                if (isEditing) {
-                    editarPromocionSubmit(idsProductos, cantidadesProductos); // Pasar los productos base y cantidades
-                } else {
-                    agregarPromocion(idsProductos, cantidadesProductos); // Pasar los productos base y cantidades
-                }
+                isEditing ? editarPromocionSubmit(idsProductos, cantidadesProductos) : agregarPromocion(idsProductos, cantidadesProductos);
             } else {
-                // Si hay productos sin stock, mostrar el nombre de los productos sin stock suficiente
-                const productosSinStock = data.productosSinStock;
-                alert('Algunos productos no tienen stock suficiente para crear/editar la promoción: ' + productosSinStock.map(p => p.nombre).join(', '));
+                alert(`Productos sin stock suficiente: ${data.productosSinStock.map(p => p.nombre).join(', ')}`);
             }
         })
-        .catch(error => console.error('Error al verificar el stock:', error))
-        .finally(() => {
-            // Rehabilitar el botón de "guardar" después de la verificación
-            if (guardarBtn) {
-                guardarBtn.disabled = false;
-            }
-        });
+        .catch(error => console.error('Error al verificar el stock:', error));
 }
 
 
@@ -172,7 +127,8 @@ function cargarPromociones() {
                         // Asegúrate de que ambos arrays (productosBase y cantidades) tengan la misma longitud
                         for (let i = 0; i < promocion.productosBase.length; i++) {
                             productosBaseHTML += `
-                                Producto: ${promocion.productosBase[i]} - Cantidad: ${promocion.cantidades[i]}<br>
+                                Producto: ${promocion.productosBase[i].nombre} - Cantidad: ${promocion.cantidades[i]}<br>
+
                             `;
                         }
                     } else {
@@ -196,8 +152,22 @@ function cargarPromociones() {
                             </td>
                         </tr>
                     `;
+                
                 });
                 document.getElementById('promocionesBody').innerHTML = promocionesHTML;
+
+                $('#tablaPromociones').DataTable({
+                    responsive: true,
+                    paging: true,
+                    searching: true, // Deshabilitar búsqueda nativa de DataTables (usamos nuestra propia búsqueda)
+                    lengthChange: true,
+                    columnDefs: [
+                        { 
+                            targets: [8],  // Asegura que la columna "Estado" sea buscable
+                            searchable: false
+                        }
+                    ]
+                });
             } else {
                 document.getElementById('promocionesBody').innerHTML = '<tr><td colspan="9">No se encontraron promociones activas</td></tr>';
             }
@@ -207,14 +177,13 @@ function cargarPromociones() {
 
 
 
-// Función para agregar promoción
-function agregarPromocion(productosBase, cantidades) {
-    const formData = new URLSearchParams(new FormData(document.getElementById('formPromociones')));
 
-    // Agregar los productos base y las cantidades al formulario
-    productosBase.forEach((productoId, index) => {
-        formData.append(`productosBase[]`, productoId);
-        formData.append(`cantidad[]`, cantidades[index]);
+// Agregar promoción
+function agregarPromocion(idsProductos, cantidades) {
+    const formData = new URLSearchParams(new FormData(document.getElementById('formPromociones')));
+    idsProductos.forEach((id, index) => {
+        formData.append('productosBase[]', id);
+        formData.append('cantidad[]', cantidades[index]);
     });
 
     fetch('../../RosarioFiesta-back/public/add-promociones.php', {
@@ -271,7 +240,7 @@ function editarPromocion(idProducto) {
                         containerEdit.appendChild(nuevoSelect);
 
                         // Cargar los productos disponibles y preseleccionar el producto correcto
-                        cargarProductosBase(productoBase, index);
+                        cargarProductosBase(productoBase.id_producto, index);
                     });
 
                     // Mostrar el modal de edición
@@ -285,70 +254,40 @@ function editarPromocion(idProducto) {
 }
 
 
-function editarPromocionSubmit(productosBase, cantidades) {
+function editarPromocionSubmit(idsProductos, cantidades) {
     const form = document.getElementById('formEditarPromociones');
+    const formData = new URLSearchParams(new FormData(form));
 
-    // Verifica que no se registre más de un evento
-    if (!form.hasAttribute('data-event-registered')) {
-        form.setAttribute('data-event-registered', 'true');
+    const idProducto = document.getElementById('editIdPromociones').value;
+    
+    formData.append('id_producto', idProducto);
 
-        form.addEventListener('submit', function (event) {
-            event.preventDefault();
+    idsProductos.forEach((id, index) => {
+        formData.append('productosBase[]', id);
+        formData.append('cantidad[]', cantidades[index]);
+    });
 
-            // Obtener los valores de los campos del formulario
-            const id_producto = document.getElementById('editIdPromociones').value.trim();
-            const nombre = document.getElementById('editNombre').value.trim();
-            const precio = parseFloat(document.getElementById('editPrecio').value);
-            const estado = document.getElementById('editEstado').value.trim();
-            const descripcion = document.getElementById('editDescripcion').value.trim();
-            const img = document.getElementById('editImg').value.trim();
+    // Verifica los datos antes de enviarlos
+    console.log(Array.from(formData.entries()));
 
-            // Validación de datos
-            if (!id_producto || !nombre || isNaN(precio) || !estado || !descripcion || !img) {
-                alert('Por favor, completa todos los campos correctamente.');
-                return;
+    fetch('../../RosarioFiesta-back/public/edit-promociones.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: formData
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Promoción editada correctamente.');
+                $('#modalEditarPromociones').modal('hide');
+                cargarPromociones();
+            } else {
+                alert('Error al editar la promoción.');
             }
-
-            // Construir el objeto de datos para enviar
-            const formData = {
-                id_producto,
-                nombre,
-                precio,
-                estado_producto: estado,
-                descripcion,
-                img,
-                productosBase,
-                cantidad: cantidades
-            };
-
-            // Enviar los datos con fetch
-            fetch('../../RosarioFiesta-back/public/edit-promociones.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData)
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`Error HTTP: ${response.status}`);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.success) {
-                        alert('Promoción actualizada correctamente.');
-                        $('#modalEditarPromociones').modal('hide');
-                        cargarPromociones(); // Función para recargar las promociones
-                    } else {
-                        alert('Error al actualizar la promoción: ' + (data.message || 'Error desconocido.'));
-                    }
-                })
-                .catch(error => {
-                    console.error('Error al actualizar la promoción:', error);
-                    alert('Ocurrió un error al intentar actualizar la promoción. Por favor, inténtalo de nuevo más tarde.');
-                });
-        });
-    }
+        })
+        .catch(error => console.error('Error al editar la promoción:', error));
 }
+
 
 // Función para eliminar un producto
 async function eliminarPromocion(idProducto) {

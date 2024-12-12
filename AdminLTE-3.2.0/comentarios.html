@@ -44,14 +44,26 @@
       </li>
     </ul>
 
-    <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
-      <!-- Messages Dropdown Menu -->
-      <li class="nav-item dropdown">
-        <a class="nav-link" data-toggle="dropdown" href="#">
-          <i class="far fa-user"></i>
-      </li>
-    </ul>
+<!-- Right navbar links -->
+<ul class="navbar-nav ml-auto">
+  <!-- User Dropdown Menu -->
+  <li class="nav-item dropdown">
+    <a class="nav-link" data-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false">
+      <i class="far fa-user"></i> <span class="d-none d-md-inline">Bienvenido, Administrador</span>
+    </a>
+    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right shadow-lg rounded" aria-labelledby="navbarDropdown">
+      <div class="dropdown-header text-center">
+        <strong>Opciones de Usuario</strong>
+      </div>
+      <div class="dropdown-divider"></div>
+      <!-- Opción de Cerrar sesión -->
+      <a id="logout-btn" class="dropdown-item text-danger d-flex align-items-center">
+        <i class="fas fa-sign-out-alt mr-2"></i>
+        <span>Cerrar Sesión</span>
+      </a>
+    </div>
+  </li>
+</ul>
   </nav>
   <!-- /.navbar -->
 
@@ -68,7 +80,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="info">
-          <a href="promociones.html" class="d-block">Administrador</a>
+          <a href="panel.html" class="d-block">Administrador</a>
         </div>
       </div>
 
@@ -224,10 +236,10 @@
 
 
 
-  <footer class="main-footer">
-    <strong>Copyright &copy; 2023-2024 <a href="https://adminlte.io">PMP Soluciones</a>.</strong>
-    All rights reserved.
-  </footer>
+    <footer class="main-footer" style="text-align: center;">
+      <strong>Copyright &copy; 2023-2024 <a href="https://adminlte.io">PMP Soluciones</a>.</strong>
+      All rights reserved.
+    </footer>
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
@@ -239,6 +251,7 @@
 <!-- <script src="../static/javascript/modal-productos.js"></script> -->
 <script src="../static/javascript/comentario-panel.js"></script>
 <script src="../static/javascript/protect.js"></script>
+<script src="../static/javascript/logout-panel.js"></script>
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script> 
 <!-- jQuery UI 1.11.4 -->

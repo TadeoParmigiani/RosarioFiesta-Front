@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                 <div class="product-info">
                                     <h3 class="product-title">${product.nombre}</h3>
                                     <p class="product-description">${product.descripcion}</p>
+                                    <p class="product-price">$${product.precio}</p> 
                                     <button class="btn add-to-cart" data-id="${product.id_producto}" data-title="${product.nombre}" data-description="${product.descripcion}" data-price="${product.precio}" data-image="${product.img}">Agregar al carrito</button>
                                 </div>
                             `;

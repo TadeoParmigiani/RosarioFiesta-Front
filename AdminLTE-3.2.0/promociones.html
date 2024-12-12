@@ -11,6 +11,9 @@
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+   <!-- DataTables -->
+   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+   <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css">  
   <!-- Tempusdominus Bootstrap 4 -->
   <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
   <!-- iCheck -->
@@ -44,14 +47,26 @@
       </li>
     </ul>
 
-    <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
-      <!-- Messages Dropdown Menu -->
-      <li class="nav-item dropdown">
-        <a class="nav-link" data-toggle="dropdown" href="#">
-          <i class="far fa-user"></i>
-      </li>
-    </ul>
+<!-- Right navbar links -->
+<ul class="navbar-nav ml-auto">
+  <!-- User Dropdown Menu -->
+  <li class="nav-item dropdown">
+    <a class="nav-link" data-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false">
+      <i class="far fa-user"></i> <span class="d-none d-md-inline">Bienvenido, Administrador</span>
+    </a>
+    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right shadow-lg rounded" aria-labelledby="navbarDropdown">
+      <div class="dropdown-header text-center">
+        <strong>Opciones de Usuario</strong>
+      </div>
+      <div class="dropdown-divider"></div>
+      <!-- Opción de Cerrar sesión -->
+      <a id="logout-btn" class="dropdown-item text-danger d-flex align-items-center">
+        <i class="fas fa-sign-out-alt mr-2"></i>
+        <span>Cerrar Sesión</span>
+      </a>
+    </div>
+  </li>
+</ul>
   </nav>
   <!-- /.navbar -->
 
@@ -68,7 +83,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="info">
-          <a href="promociones.html" class="d-block">Administrador</a>
+          <a href="panel.html" class="d-block">Administrador</a>
         </div>
       </div>
 
@@ -185,7 +200,7 @@
               <!-- /.card-header -->
               <div class="card-body">
                 <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#modalPromociones">
-                  Agregar Producto
+                  Agregar Promocion
                 </button>
                 <table id="tablaPromociones" class="table table-bordered table-hover">
                   <thead>
@@ -233,7 +248,7 @@
   </div>
 <!-- Modal para agregar producto -->
 <div class="modal fade" id="modalPromociones" tabindex="-1" aria-labelledby="modalPromocionesLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <form id="formPromociones" method="POST" action="add-promociones.php">
         <div class="modal-header">
@@ -292,7 +307,7 @@
 
 <!-- Modal para editar producto -->
 <div class="modal fade" id="modalEditarPromociones" tabindex="-1" role="dialog" aria-labelledby="modalEditarPromocionesLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="modalEditarPromocionesLabel">Editar Promocion</h5>
@@ -305,29 +320,29 @@
           <input type="hidden" id="editIdPromociones">
           <div class="form-group">
             <label for="editNombre">Nombre</label>
-            <input type="text" class="form-control" id="editNombre" required>
+            <input type="text" class="form-control" id="editNombre" name="editNombre" required>
           </div>
           <div class="form-group">
             <label for="editPrecio">Precio</label>
-            <input type="number" class="form-control" id="editPrecio" required>
+            <input type="number" class="form-control" id="editPrecio" name="editPrecio" required>
           </div>
           <div class="form-group">
             <label for="editEstado">Estado</label>
-            <select class="form-control" id="editEstado" required>
+            <select class="form-control" id="editEstado" name="editEstado" required>
               <option value="activo">Activo</option>
               <option value="inactivo">Inactivo</option>
             </select>
           </div>
           <div class="form-group">
             <label for="editDescripcion">Descripción</label>
-            <textarea class="form-control" id="editDescripcion" required></textarea>
+            <textarea class="form-control" id="editDescripcion" name="editDescripcion" required></textarea>
           </div>
           <div id="productosBaseContainerEdit">
             <!-- Los selects se llenarán dinámicamente -->
           </div>
           <div class="form-group">
             <label for="editImg">URL de la Imagen</label>
-            <input type="text" class="form-control" id="editImg" required>
+            <input type="text" class="form-control" id="editImg" name="editImg" required>
           </div>
           <button type="submit" class="btn btn-primary">Guardar Cambios</button>
         </form>
@@ -337,10 +352,10 @@
 </div>
 
 
-  <footer class="main-footer">
-    <strong>Copyright &copy; 2023-2024 <a href="https://adminlte.io">PMP Soluciones</a>.</strong>
-    All rights reserved.
-  </footer>
+<footer class="main-footer" style="text-align: center;">
+  <strong>Copyright &copy; 2023-2024 <a href="https://adminlte.io">PMP Soluciones</a>.</strong>
+  All rights reserved.
+</footer>
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
@@ -352,6 +367,7 @@
 <!-- <script src="../static/javascript/modal-productos.js"></script> -->
 <script src="../static/javascript/promociones-panel.js"></script>
 <script src="../static/javascript/protect.js"></script>
+<script src="../static/javascript/logout-panel.js"></script>
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script> 
 <!-- jQuery UI 1.11.4 -->
@@ -390,6 +406,10 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 
 

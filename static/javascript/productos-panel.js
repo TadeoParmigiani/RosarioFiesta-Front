@@ -10,43 +10,66 @@ document.addEventListener('DOMContentLoaded', function () {
   // Manejo del envío del formulario de editar producto
   document.getElementById('formEditarProducto').addEventListener('submit', function (event) {
     event.preventDefault();
-    editarProductoSubmit();
+    
   });
 });
-
+let tablaProductos
 function cargarProductos() {
-  fetch('../../RosarioFiesta-back/public/get-product.php')
-      .then(response => response.json())
-      .then(data => {
-          if (data.success) {
-              let productosHTML = '';
-              data.productos.forEach(producto => {
-                  productosHTML += `
-                      <tr>
-                          <td>${producto.id_producto}</td>
-                          <td>${producto.nombre}</td>
-                          <td>${producto.precio}</td>
-                          <td>${producto.stock}</td>
-                          <td>${producto.estado_producto}</td>
-                          <td><img src="${producto.img}" alt="${producto.nombre}" style="width: 50px; height: auto;"></td>
-                          <td>${producto.id_categoria}</td>
-                          <td>${producto.descripcion}</td>
-                          <td>
-                              <button class="btn btn-sm btn-warning" onclick="editarProducto(${producto.id_producto})">Editar</button>
-                              <button class="btn btn-sm btn-danger" onclick="eliminarProducto(${producto.id_producto})">Eliminar</button>
-                          </td>
-                      </tr>
-                  `;
-              });
-              document.getElementById('productosBody').innerHTML = productosHTML;
-          } else {
-              document.getElementById('productosBody').innerHTML = '<tr><td colspan="9">No se encontraron productos activos</td></tr>';
-          }
-      })
-      .catch(error => {
-          console.error('Error al cargar los productos:', error);
-          alert('Error al cargar los productos');
-      });
+    fetch('../../RosarioFiesta-back/public/get-product.php')
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                let productosHTML = '';
+                data.productos.forEach(producto => {
+                    productosHTML += `
+                        <tr>
+                            <td>${producto.id_producto}</td>
+                            <td>${producto.nombre}</td>
+                            <td>${producto.precio}</td>
+                            <td>${producto.stock}</td>
+                            <td>${producto.estado_producto}</td>
+                            <td><img src="${producto.img}" alt="${producto.nombre}" style="width: 50px; height: auto;"></td>
+                            <td>${producto.id_categoria}</td>
+                            <td>${producto.descripcion}</td>
+                            <td>
+                                <button class="btn btn-sm btn-warning" onclick="editarProducto(${producto.id_producto})">Editar</button>
+                                <button class="btn btn-sm btn-danger" onclick="eliminarProducto(${producto.id_producto})">Eliminar</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+
+              // Limpiar el cuerpo de la tabla
+              const tablaBody = document.getElementById('productosBody');
+              tablaBody.innerHTML = productosHTML;
+
+                // Destruir la instancia anterior de DataTable (si existe)
+                if (tablaProductos) {
+                    tablaProductos.destroy();
+                }
+
+                // Inicializar DataTables y guardar la referencia
+                tablaProductos = $('#tablaProductos').DataTable({
+                    responsive: true,
+                    paging: true,
+                    searching: true,
+                    lengthChange: true,
+                    columnDefs: [
+                      { 
+                          targets: [8],  // Asegura que la columna "Estado" sea buscable
+                          searchable: false
+                      }
+                  ]
+                });
+            } else {
+                // Si no hay productos, mostrar un mensaje en la tabla
+                document.getElementById('productosBody').innerHTML = '<tr><td colspan="9">No se encontraron productos activos</td></tr>';
+            }
+        })
+        .catch(error => {
+            console.error('Error al cargar los productos:', error);
+            alert('Error al cargar los productos');
+        });
 }
 
 function eliminarProducto(idProducto) {
@@ -98,7 +121,7 @@ function editarProducto(idProducto) {
 
 document.getElementById('formEditarProducto').addEventListener('submit', function (event) {
   event.preventDefault();
-
+  
   const idProducto = document.getElementById('editIdProducto').value;
   const nombre = document.getElementById('editNombre').value;
   const precio = document.getElementById('editPrecio').value;
@@ -126,8 +149,9 @@ document.getElementById('formEditarProducto').addEventListener('submit', functio
   .then(data => {
       if (data.success) {
           alert('Producto actualizado correctamente.');
+          
+          cargarProductos();
           $('#modalEditarProducto').modal('hide');
-          cargarProductos(); 
       } else {
           alert('Error al actualizar el producto.');
       }
@@ -162,6 +186,7 @@ function agregarProducto() {
     .then(data => {
       if (data.success) {
         alert("Producto agregado correctamente");
+        
         cargarProductos(); 
       } else {
         alert('Error al agregar el producto.');

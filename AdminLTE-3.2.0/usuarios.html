@@ -11,6 +11,9 @@
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css">  
   <!-- Tempusdominus Bootstrap 4 -->
   <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
   <!-- iCheck -->
@@ -44,14 +47,26 @@
       </li>
     </ul>
 
-    <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
-      <!-- Messages Dropdown Menu -->
-      <li class="nav-item dropdown">
-        <a class="nav-link" data-toggle="dropdown" href="#">
-          <i class="far fa-user"></i>
-      </li>
-    </ul>
+<!-- Right navbar links -->
+<ul class="navbar-nav ml-auto">
+  <!-- User Dropdown Menu -->
+  <li class="nav-item dropdown">
+    <a class="nav-link" data-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false">
+      <i class="far fa-user"></i> <span class="d-none d-md-inline">Bienvenido, Administrador</span>
+    </a>
+    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right shadow-lg rounded" aria-labelledby="navbarDropdown">
+      <div class="dropdown-header text-center">
+        <strong>Opciones de Usuario</strong>
+      </div>
+      <div class="dropdown-divider"></div>
+      <!-- Opción de Cerrar sesión -->
+      <a id="logout-btn" class="dropdown-item text-danger d-flex align-items-center">
+        <i class="fas fa-sign-out-alt mr-2"></i>
+        <span>Cerrar Sesión</span>
+      </a>
+    </div>
+  </li>
+</ul>
   </nav>
   <!-- /.navbar -->
 
@@ -68,7 +83,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="info">
-          <a href="promociones.html" class="d-block">Administrador</a>
+          <a href="panel.html" class="d-block">Administrador</a>
         </div>
       </div>
 
@@ -191,6 +206,7 @@
                     <th>Nombre</th>
                     <th>Email</th>
                     <th>Dni</th>
+                    <th>Acciones</th>
                   </tr>
                   </thead>
                   <tbody id="usuariosBody">
@@ -261,10 +277,10 @@
 
 
 
-  <footer class="main-footer">
-    <strong>Copyright &copy; 2023-2024 <a href="https://adminlte.io">PMP Soluciones</a>.</strong>
-    All rights reserved.
-  </footer>
+<footer class="main-footer" style="text-align: center;">
+  <strong>Copyright &copy; 2023-2024 <a href="https://adminlte.io">PMP Soluciones</a>.</strong>
+  All rights reserved.
+</footer>
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
@@ -275,6 +291,7 @@
 <!-- js -->
 <script src="../static/javascript/protect.js"></script>
 <script src="../static/javascript/usuarios-panel.js"></script>
+<script src="../static/javascript/logout-panel.js"></script>
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script> 
 <!-- jQuery UI 1.11.4 -->
@@ -309,7 +326,11 @@
 <script src="dist/js/demo.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="dist/js/pages/dashboard.js"></script>
-
+<!-- Scripts necesarios -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
